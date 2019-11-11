@@ -3,7 +3,7 @@ set -e
 
 repo="https://f-droid.org/repo/"
 reponano="https://nanolx.org/fdroid/repo/"
-repomicrog="https://microg.org/fdroid/repo"
+repomicrog="https://microg.org/fdroid/repo/"
 
 addCopy() {
 cat >> Android.mk <<EOF
@@ -44,7 +44,6 @@ downloadFromFdroid() {
 
 #downloadFromNanodroid packageName overrides
 downloadFromNanodroid() {
-        mkdir -p tmp
         if [ ! -f tmp/index.xml ];then
                 #TODO: Check security keys
                 wget --connect-timeout=10 $reponano/index.jar -O tmp/index.jar
@@ -58,20 +57,19 @@ downloadFromNanodroid() {
 
 #downloadFromNanodroid packageName overrides
 downloadFrommicrog() {
-        mkdir -p tmp
         if [ ! -f tmp/index.xml ];then
                 #TODO: Check security keys
-                wget --connect-timeout=10 $repomicro/index.jar -O tmp/index.jar
+                wget --connect-timeout=10 $repomicrog/index.jar -O tmp/index.jar
                 unzip -p tmp/index.jar index.xml > tmp/index.xml
         fi
-       marketvercode="$(xmlstarlet sel -t -m '//application[id="'"$1"'"]' -v ./marketvercode tmp/index.xml || true)"
+	marketvercode="$(xmlstarlet sel -t -m '//application[id="'"$1"'"]' -v ./marketvercode tmp/index.xml || true)"
 	apk="$(xmlstarlet sel -t -m '//application[id="'"$1"'"]/package[versioncode="'"$marketvercode"'"]' -v ./apkname tmp/index.xml || xmlstarlet sel -t -m '//application[id="'"$1"'"]/package[1]' -v ./apkname tmp/index.xml)"
-        while ! wget --connect-timeout=10 $repomicro/$apk -O bin/$apk;do sleep 1;done
+        while ! wget --connect-timeout=10 $repomicrog/$apk -O bin/$apk;do sleep 1;done
         addCopy $apk $1 "$2"
 }
 
 
-
+downloadFromFdroid org.fdroid.fdroid
 #phh's Superuser
 #downloadFromFdroid me.phh.superuser
 #YouTube viewer
@@ -84,13 +82,13 @@ downloadFromFdroid com.moez.QKSMS "messaging"
 downloadFromFdroid net.osmand.plus
 #Web browser
 #downloadFromFdroid org.mozilla.fennec_fdroid "Browser2 QuickSearchBox"
-downloadFromFdroid acr.browser.lightning "Browser2 QuickSearchBox"
+downloadFromFdroid acr.browser.lightning "Browser2 QuickSearchBox Jelly"
 #Calendar
 downloadFromFdroid ws.xsoh.etar "Calendar"
 #Public transportation
 downloadFromFdroid de.grobox.liberario
 #Pdf viewer
-downloadFromFdroid com.artifex.mupdf.viewer.app
+#downloadFromFdroid com.artifex.mupdf.viewer.app
 #Keyboard/IME
 downloadFromFdroid com.menny.android.anysoftkeyboard "LatinIME OpenWnn"
 #Play Store download
@@ -102,28 +100,38 @@ downloadFromFdroid com.fsck.k9 "Email"
 #Calendar/Contacts sync
 #downloadFromFdroid at.bitfire.davdroid
 #Nextcloud client
-downloadFromFdroid com.nextcloud.client
+#downloadFromFdroid com.nextcloud.client
 #Lawnchair launcher
-downloadFromFdroid ch.deletescape.lawnchair.plah "Launcher3QuickStep Launcher2 Launcher3"
+#downloadFromFdroid ch.deletescape.lawnchair.plah "Launcher3QuickStep Launcher2 Launcher3 TrebuchetQuickStep"
 #Phonograph
 downloadFromFdroid com.kabouzeid.gramophone "Eleven"
+#Alarmio
+downloadFromFdroid me.jfenn.alarmio
+#Simple Gallery
+downloadFromFdroid com.simplemobiletools.gallery.pro "Gallery2"
+#Simple Calculator
+downloadFromFdroid com.simplemobiletools.calculator "ExactCalculator"
+
+rm -rf tmp/index.xml
+rm -rf tmp/index.jar
 #playstore
-downloadFromNanoDroid com.android.vending
+downloadFromNanodroid com.android.vending
 #MPV
-downloadFromNanoDroid is.xyz.mpv
+downloadFromNanodroid is.xyz.mpv
+rm -rf tmp/index.xml
+rm -rf tmp/index.jar
 #MicroG service core
-downloadFrommicrog com.google.gms
+downloadFrommicrog com.google.android.gms
 #MicroG droidguard helper
 downloadFrommicrog org.microg.gms.droidguard
-#UnifiedNlp
-downloadFrommicrog org.microg.nlp
-#MicroG services framewrok proxy
+#MicroG services framework proxy
 downloadFrommicrog com.google.android.gsf
-
+#dejavu location
+#downloadFrommicrog org.fitchfamily.android.dejavu
+#UnifiedNlp 
+#downloadFrommicrog org.microg.unifiednlp
 #TODO: Some social network?
 #Facebook? Twitter? Reddit? Mastodon?
-
-downloadFromFdroid org.fdroid.fdroid
 echo >> apps.mk
 
 rm -Rf tmp
