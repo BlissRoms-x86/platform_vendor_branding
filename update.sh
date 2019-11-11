@@ -50,8 +50,8 @@ downloadFromNanodroid() {
                 wget --connect-timeout=10 $reponano/index.jar -O tmp/index.jar
                 unzip -p tmp/index.jar index.xml > tmp/index.xml
         fi
-        marketvercode="$(xmlstarlet sel -t -m '//application[id="'"$1"'"]' -v ./marketvercode tmp/index.xml $
-        apk="$(xmlstarlet sel -t -m '//application[id="'"$1"'"]/package[versioncode="'"$marketvercode"'"]' -$
+        marketvercode="$(xmlstarlet sel -t -m '//application[id="'"$1"'"]' -v ./marketvercode tmp/index.xml || true)"
+	apk="$(xmlstarlet sel -t -m '//application[id="'"$1"'"]/package[versioncode="'"$marketvercode"'"]' -v ./apkname tmp/index.xml || xmlstarlet sel -t -m '//application[id="'"$1"'"]/package[1]' -v ./apkname tmp/index.xml)"
         while ! wget --connect-timeout=10 $reponano/$apk -O bin/$apk;do sleep 1;done
         addCopy $apk $1 "$2"
 }
@@ -64,8 +64,8 @@ downloadFrommicrog() {
                 wget --connect-timeout=10 $repomicro/index.jar -O tmp/index.jar
                 unzip -p tmp/index.jar index.xml > tmp/index.xml
         fi
-        marketvercode="$(xmlstarlet sel -t -m '//application[id="'"$1"'"]' -v ./marketvercode tmp/index.xml $
-        apk="$(xmlstarlet sel -t -m '//application[id="'"$1"'"]/package[versioncode="'"$marketvercode"'"]' -$
+       marketvercode="$(xmlstarlet sel -t -m '//application[id="'"$1"'"]' -v ./marketvercode tmp/index.xml || true)"
+	apk="$(xmlstarlet sel -t -m '//application[id="'"$1"'"]/package[versioncode="'"$marketvercode"'"]' -v ./apkname tmp/index.xml || xmlstarlet sel -t -m '//application[id="'"$1"'"]/package[1]' -v ./apkname tmp/index.xml)"
         while ! wget --connect-timeout=10 $repomicro/$apk -O bin/$apk;do sleep 1;done
         addCopy $apk $1 "$2"
 }
