@@ -2,6 +2,8 @@
 set -e
 
 repo="https://f-droid.org/repo/"
+reponano="https://nanolx.org/fdroid/repo/"
+repomicrog="https://microg.org/fdroid/repo"
 
 addCopy() {
 cat >> Android.mk <<EOF
@@ -40,6 +42,35 @@ downloadFromFdroid() {
 	addCopy $apk $1 "$2"
 }
 
+#downloadFromNanodroid packageName overrides
+downloadFromNanodroid() {
+        mkdir -p tmp
+        if [ ! -f tmp/index.xml ];then
+                #TODO: Check security keys
+                wget --connect-timeout=10 $reponano/index.jar -O tmp/index.jar
+                unzip -p tmp/index.jar index.xml > tmp/index.xml
+        fi
+        marketvercode="$(xmlstarlet sel -t -m '//application[id="'"$1"'"]' -v ./marketvercode tmp/index.xml $
+        apk="$(xmlstarlet sel -t -m '//application[id="'"$1"'"]/package[versioncode="'"$marketvercode"'"]' -$
+        while ! wget --connect-timeout=10 $reponano/$apk -O bin/$apk;do sleep 1;done
+        addCopy $apk $1 "$2"
+}
+
+#downloadFromNanodroid packageName overrides
+downloadFrommicrog() {
+        mkdir -p tmp
+        if [ ! -f tmp/index.xml ];then
+                #TODO: Check security keys
+                wget --connect-timeout=10 $repomicro/index.jar -O tmp/index.jar
+                unzip -p tmp/index.jar index.xml > tmp/index.xml
+        fi
+        marketvercode="$(xmlstarlet sel -t -m '//application[id="'"$1"'"]' -v ./marketvercode tmp/index.xml $
+        apk="$(xmlstarlet sel -t -m '//application[id="'"$1"'"]/package[versioncode="'"$marketvercode"'"]' -$
+        while ! wget --connect-timeout=10 $repomicro/$apk -O bin/$apk;do sleep 1;done
+        addCopy $apk $1 "$2"
+}
+
+
 
 #phh's Superuser
 #downloadFromFdroid me.phh.superuser
@@ -63,19 +94,31 @@ downloadFromFdroid com.artifex.mupdf.viewer.app
 #Keyboard/IME
 downloadFromFdroid com.menny.android.anysoftkeyboard "LatinIME OpenWnn"
 #Play Store download
-downloadFromFdroid com.github.yeriomin.yalpstore
+#downloadFromFdroid com.github.yeriomin.yalpstore
 #Mail client
 downloadFromFdroid com.fsck.k9 "Email"
 #Ciphered Instant Messaging
 #downloadFromFdroid im.vector.alpha
 #Calendar/Contacts sync
-downloadFromFdroid at.bitfire.davdroid
+#downloadFromFdroid at.bitfire.davdroid
 #Nextcloud client
 downloadFromFdroid com.nextcloud.client
 #Lawnchair launcher
 downloadFromFdroid ch.deletescape.lawnchair.plah "Launcher3QuickStep Launcher2 Launcher3"
 #Phonograph
 downloadFromFdroid com.kabouzeid.gramophone "Eleven"
+#playstore
+downloadFromNanoDroid com.android.vending
+#MPV
+downloadFromNanoDroid is.xyz.mpv
+#MicroG service core
+downloadFrommicrog com.google.gms
+#MicroG droidguard helper
+downloadFrommicrog org.microg.gms.droidguard
+#UnifiedNlp
+downloadFrommicrog org.microg.nlp
+#MicroG services framewrok proxy
+downloadFrommicrog com.google.android.gsf
 
 #TODO: Some social network?
 #Facebook? Twitter? Reddit? Mastodon?
