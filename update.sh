@@ -42,18 +42,20 @@ downloadFromFdroid() {
 
 
 #phh's Superuser
-downloadFromFdroid me.phh.superuser
+#downloadFromFdroid me.phh.superuser
 #YouTube viewer
 downloadFromFdroid org.schabi.newpipe
+#QKSMS
+downloadFromFdroid com.moez.QKSMS "messaging" 
 #Ciphered SMS
-downloadFromFdroid org.smssecure.smssecure "messaging"
+#downloadFromFdroid org.smssecure.smssecure "messaging"
 #Navigation
 downloadFromFdroid net.osmand.plus
 #Web browser
 #downloadFromFdroid org.mozilla.fennec_fdroid "Browser2 QuickSearchBox"
 downloadFromFdroid acr.browser.lightning "Browser2 QuickSearchBox"
 #Calendar
-downloadFromFdroid ws.xsoh.etar Calendar
+downloadFromFdroid ws.xsoh.etar "Calendar"
 #Public transportation
 downloadFromFdroid de.grobox.liberario
 #Pdf viewer
@@ -72,6 +74,8 @@ downloadFromFdroid at.bitfire.davdroid
 downloadFromFdroid com.nextcloud.client
 #Lawnchair launcher
 downloadFromFdroid ch.deletescape.lawnchair.plah "Launcher3QuickStep Launcher2 Launcher3"
+#Phonograph
+downloadFromFdroid com.kabouzeid.gramophone "Eleven"
 
 #TODO: Some social network?
 #Facebook? Twitter? Reddit? Mastodon?
