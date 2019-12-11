@@ -104,15 +104,13 @@ downloadFromFdroid com.aurora.store
 #Phonograph
 downloadFromFdroid com.kabouzeid.gramophone "Eleven"
 #Alarmio
-downloadFromFdroid me.jfenn.alarmio
+downloadFromFdroid me.jfenn.alarmio "GoogleClock DeskClock"
 #Simple Gallery
 downloadFromFdroid com.simplemobiletools.gallery.pro "Gallery2"
 #Simple Calculator
 downloadFromFdroid com.simplemobiletools.calculator "ExactCalculator"
-#Dejavu Nlp
-downloadFromFdroid org.fitchfamily.android.dejavu
-#UnifiedNlp
-downloadFromFdroid com.google.android.gms
+#Mozilla Nlp
+downloadFromFdroid org.microg.nlp.backed.ichnaea
 #Nominatim Nlp
 downloadFromFdroid org.microg.nlp.backend.nominatim
 
@@ -129,6 +127,8 @@ downloadFrommicrog com.google.android.gms
 downloadFrommicrog org.microg.gms.droidguard
 #MicroG services framework proxy
 downloadFrommicrog com.google.android.gsf
+#Fakestore
+downloadFrommicrog  com.android.vending
 
 rm -rf tmp/index.xml
 rm -rf tmp/index.jar
@@ -141,3 +141,5 @@ downloadFromBromite org.bromite.bromite "Browser2 QuickSearchBox Jelly"
 echo >> apps.mk
 
 rm -Rf tmp
+
+
