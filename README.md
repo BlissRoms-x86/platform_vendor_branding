@@ -7,16 +7,18 @@ A set of FOSS applications to include in an AOSP
 - NewPipe
 - Etar
 - Anysoft Keyboard
-- Aurora Store
+- Aurora Store*
 - Phonograph
 - Alarmio
 - Simple Gallery
 - Simple Calculator
-- Mozilla Nlp
-- Nominatim Nlp
+- Mozilla Nlp*
+- Nominatim Nlp*
 - MPV
-- MicroG Service Core
-- MicroG Droidguard Helper
-- MicroG Services Framework Proxy
-- FakeStore
+- MicroG Service Core*
+- MicroG Droidguard Helper*
+- MicroG Services Framework Proxy*
+- FakeStore*
 - Bromite
+
+Starred ones has to removed for microG removal
