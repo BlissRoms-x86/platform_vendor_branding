@@ -9,7 +9,8 @@ A set of FOSS applications to include in an AOSP
 - Anysoft Keyboard
 - Aurora Store*
 - Phonograph
-- Alarmio
+- QKSMS
+- OsmAnd
 - Simple Gallery
 - Simple Calculator
 - Mozilla Nlp*
