@@ -103,12 +103,14 @@ downloadFromFdroid com.aurora.store
 
 #Phonograph
 downloadFromFdroid com.kabouzeid.gramophone "Eleven"
+#Alarmio
+downloadFromFdroid me.jfenn.alarmio "GoogleClock DeskClock"
 #Simple Gallery
 downloadFromFdroid com.simplemobiletools.gallery.pro "Gallery2"
 #Simple Calculator
 downloadFromFdroid com.simplemobiletools.calculator "ExactCalculator"
 #Mozilla Nlp
-downloadFromFdroid org.microg.nlp.backend.ichnaea
+downloadFromFdroid org.microg.nlp.backed.ichnaea
 #Nominatim Nlp
 downloadFromFdroid org.microg.nlp.backend.nominatim
 
