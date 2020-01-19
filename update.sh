@@ -81,26 +81,22 @@ downloadFromBromite() {
 	while ! wget --connect-timeout=10 $repobromite/$apk -O bin/$apk;do sleep 1;done
 	addCopy $apk $1 "$2"
 }
-
-
+#FDroid
 downloadFromFdroid org.fdroid.fdroid
-
 #YouTube viewer
 downloadFromFdroid org.schabi.newpipe
 #QKSMS
 downloadFromFdroid com.moez.QKSMS "messaging" 
-
 #Navigation
 downloadFromFdroid net.osmand.plus
-
 #Calendar
 downloadFromFdroid ws.xsoh.etar "Calendar"
-
+#DAV sync
+downloadFromFdroid at.bitfire.davdroid
 #Keyboard/IME
-downloadFromFdroid com.menny.android.anysoftkeyboard "LatinIME OpenWnn"
+#downloadFromFdroid com.menny.android.anysoftkeyboard "LatinIME OpenWnn"
 #Play Store download
 downloadFromFdroid com.aurora.store
-
 #Phonograph
 downloadFromFdroid com.kabouzeid.gramophone "Eleven"
 #Alarmio
@@ -110,7 +106,7 @@ downloadFromFdroid com.simplemobiletools.gallery.pro "Gallery2"
 #Simple Calculator
 downloadFromFdroid com.simplemobiletools.calculator "ExactCalculator"
 #Mozilla Nlp
-downloadFromFdroid org.microg.nlp.backed.ichnaea
+downloadFromFdroid org.microg.nlp.backend.ichnaea
 #Nominatim Nlp
 downloadFromFdroid org.microg.nlp.backend.nominatim
 

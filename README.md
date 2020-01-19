@@ -6,7 +6,7 @@ A set of FOSS applications to include in an AOSP
 - F-Droid
 - NewPipe
 - Etar
-- Anysoft Keyboard
+- CalDAV/CardDAV Sync
 - Aurora Store*
 - Phonograph
 - QKSMS
@@ -22,4 +22,7 @@ A set of FOSS applications to include in an AOSP
 - FakeStore*
 - Bromite
 
-Starred ones has to removed for microG removal
+### Notes
+
+- Starred ones has to removed for microG removal.
+- For microG, this [commit](https://github.com/microg/android_packages_apps_GmsCore/pull/957) is needed
