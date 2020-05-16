@@ -129,7 +129,7 @@ downloadFrommicrog  com.android.vending
 rm -rf tmp/index.xml
 rm -rf tmp/index.jar
 #Web browser
-downloadFromBromite org.bromite.bromite "Browser2 QuickSearchBox Jelly"
+# downloadFromBromite org.bromite.bromite "Browser2 QuickSearchBox Jelly"
 
 
 #TODO: Some social network?
