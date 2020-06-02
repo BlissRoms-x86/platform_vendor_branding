@@ -112,6 +112,10 @@ PRODUCT_PACKAGES += \
     LMODroidThemesStub \
     ThemePicker
 
+# TouchGestures
+PRODUCT_PACKAGES += \
+    TouchGestures
+
 # Config
 PRODUCT_PACKAGES += \
     SimpleDeviceConfig
