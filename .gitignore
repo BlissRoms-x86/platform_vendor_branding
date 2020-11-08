@@ -1,3 +1,4 @@
 apps.mk
 bin/
 Android.mk
+lib/

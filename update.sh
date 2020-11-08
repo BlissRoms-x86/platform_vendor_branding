@@ -5,13 +5,29 @@ repo="https://f-droid.org/repo/"
 
 addCopy() {
 	addition=""
-	if [ "$2"  == org.mozilla.fennec_fdroid ];then
+	if [ "$2" == ws.xsoh.etar ] || \
+		[ "$2" == com.artifex.mupdf.viewer.app ] || \
+		[ "$2" == com.aurora.store ] || \
+		[ "$2" == com.fsck.k9 ] || \
+		[ "$2" == com.etesync.syncadapter ] || \
+		[ "$2" == org.tasks ] || \
+		[ "$2" == co.pxhouse.sas ] || \
+		[ "$2" == com.simplemobiletools.gallery.pro ] || \
+		[ "$2" == com.aurora.adroid ] || \
+		[ "$2" == com.google.android.gms ] || \
+		[ "$2" == com.google.android.gsf ] || \
+		[ "$2" == com.android.vending ] || \
+		[ "$2" == org.microg.gms.droidguard ] \
+		;then
+		echo "Skipping lib extraction for: $2"
+	else 
 		unzip bin/$1 lib/*
 		addition="
-LOCAL_PREBUILT_JNI_LIBS := \\
-$(unzip -lv bin/$1 |grep -v Stored |sed -nE 's;.*(lib/arm64-v8a/.*);\t\1 \\;p')
-
-		"
+	LOCAL_PREBUILT_JNI_LIBS := \\
+	$(unzip -lv bin/$1 |grep -v Stored |sed -nE 's;.*(lib/arm64-v8a/.*);\t\1 \\;p') \\
+	$(unzip -lv bin/$1 |grep -v Stored |sed -nE 's;.*(lib/x86/.*);\t\1 \\;p') \\
+	$(unzip -lv bin/$1 |grep -v Stored |sed -nE 's;.*(lib/x86_64/.*);\t\1 \\;p')
+			"
 	fi
     if [ "$2" == com.google.android.gms ] || [ "$2" == com.android.vending ] ;then
         addition="LOCAL_PRIVILEGED_MODULE := true"
@@ -60,19 +76,19 @@ downloadFromFdroid() {
 
 
 #phh's Superuser
-downloadFromFdroid me.phh.superuser
+#~ downloadFromFdroid me.phh.superuser
 #YouTube viewer
-downloadFromFdroid org.schabi.newpipe
+#~ downloadFromFdroid org.schabi.newpipe
 #Ciphered SMS
-downloadFromFdroid org.smssecure.smssecure "messaging"
+#~ downloadFromFdroid org.smssecure.smssecure "messaging"
 #Navigation
 downloadFromFdroid net.osmand.plus
 #Web browser
-downloadFromFdroid org.mozilla.fennec_fdroid "Browser2 QuickSearchBox"
+#~ downloadFromFdroid org.mozilla.fennec_fdroid "Browser2 QuickSearchBox"
 #Calendar
 downloadFromFdroid ws.xsoh.etar Calendar
 #Public transportation
-downloadFromFdroid de.grobox.liberario
+#~ downloadFromFdroid de.grobox.liberario
 #Pdf viewer
 downloadFromFdroid com.artifex.mupdf.viewer.app
 #Play Store download
@@ -84,13 +100,13 @@ downloadFromFdroid com.fsck.k9 "Email"
 #Calendar/Contacts sync
 downloadFromFdroid com.etesync.syncadapter
 #Nextcloud client
-downloadFromFdroid com.nextcloud.client
+#~ downloadFromFdroid com.nextcloud.client
 # Todo lists
 downloadFromFdroid org.tasks
 
-downloadFromFdroid org.mariotaku.twidere
-downloadFromFdroid com.pitchedapps.frost
-downloadFromFdroid com.keylesspalace.tusky
+#~ downloadFromFdroid org.mariotaku.twidere
+#~ downloadFromFdroid com.pitchedapps.frost
+#~ downloadFromFdroid com.keylesspalace.tusky
 
 #Fake assistant that research on duckduckgo
 downloadFromFdroid co.pxhouse.sas
