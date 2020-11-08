@@ -5,29 +5,16 @@ repo="https://f-droid.org/repo/"
 
 addCopy() {
 	addition=""
-	if [ "$2" == ws.xsoh.etar ] || \
-		[ "$2" == com.artifex.mupdf.viewer.app ] || \
-		[ "$2" == com.aurora.store ] || \
-		[ "$2" == com.fsck.k9 ] || \
-		[ "$2" == com.etesync.syncadapter ] || \
-		[ "$2" == org.tasks ] || \
-		[ "$2" == co.pxhouse.sas ] || \
-		[ "$2" == com.simplemobiletools.gallery.pro ] || \
-		[ "$2" == com.aurora.adroid ] || \
-		[ "$2" == com.google.android.gms ] || \
-		[ "$2" == com.google.android.gsf ] || \
-		[ "$2" == com.android.vending ] || \
-		[ "$2" == org.microg.gms.droidguard ] \
-		;then
-		echo "Skipping lib extraction for: $2"
-	else 
-		unzip bin/$1 lib/*
+	if unzip bin/$1 lib/* > /dev/null 2>&1 ; then
+		echo "Extracting libs for: $2"
 		addition="
-	LOCAL_PREBUILT_JNI_LIBS := \\
-	$(unzip -lv bin/$1 |grep -v Stored |sed -nE 's;.*(lib/arm64-v8a/.*);\t\1 \\;p') \\
-	$(unzip -lv bin/$1 |grep -v Stored |sed -nE 's;.*(lib/x86/.*);\t\1 \\;p') \\
-	$(unzip -lv bin/$1 |grep -v Stored |sed -nE 's;.*(lib/x86_64/.*);\t\1 \\;p')
-			"
+			LOCAL_PREBUILT_JNI_LIBS := \\
+			$(unzip -lv bin/$1 |grep -v Stored |sed -nE 's;.*(lib/arm64-v8a/.*);\t\1 \\;p') \\
+			$(unzip -lv bin/$1 |grep -v Stored |sed -nE 's;.*(lib/x86/.*);\t\1 \\;p') \\
+			$(unzip -lv bin/$1 |grep -v Stored |sed -nE 's;.*(lib/x86_64/.*);\t\1 \\;p')
+					"
+	else 
+		echo "Skipping lib extraction for: $2"
 	fi
     if [ "$2" == com.google.android.gms ] || [ "$2" == com.android.vending ] ;then
         addition="LOCAL_PRIVILEGED_MODULE := true"
@@ -74,52 +61,56 @@ downloadFromFdroid() {
 	addCopy $apk $1 "$2"
 }
 
-
-#phh's Superuser
-#~ downloadFromFdroid me.phh.superuser
-#YouTube viewer
-#~ downloadFromFdroid org.schabi.newpipe
-#Ciphered SMS
-#~ downloadFromFdroid org.smssecure.smssecure "messaging"
 #Navigation
 downloadFromFdroid net.osmand.plus
-#Web browser
-#~ downloadFromFdroid org.mozilla.fennec_fdroid "Browser2 QuickSearchBox"
 #Calendar
 downloadFromFdroid ws.xsoh.etar Calendar
-#Public transportation
-#~ downloadFromFdroid de.grobox.liberario
 #Pdf viewer
 downloadFromFdroid com.artifex.mupdf.viewer.app
-#Play Store download
+# Aurora App Store
 downloadFromFdroid com.aurora.store
 #Mail client
 downloadFromFdroid com.fsck.k9 "Email"
-#Ciphered Instant Messaging
-#downloadFromFdroid im.vector.alpha
 #Calendar/Contacts sync
 downloadFromFdroid com.etesync.syncadapter
-#Nextcloud client
-#~ downloadFromFdroid com.nextcloud.client
 # Todo lists
 downloadFromFdroid org.tasks
+#Fake assistant that research on duckduckgo
+downloadFromFdroid co.pxhouse.sas
+# Gallery App
+downloadFromFdroid com.simplemobiletools.gallery.pro "Photos Gallery Gallery2"
+# Aurora Fdroid
+downloadFromFdroid com.aurora.adroid
+#Phonograph
+downloadFromFdroid com.kabouzeid.gramophone "Eleven"
+#Alarmio
+downloadFromFdroid me.jfenn.alarmio "GoogleClock DeskClock"
+#Mozilla Nlp
+downloadFromFdroid org.microg.nlp.backend.ichnaea
+#Nominatim Nlp
+downloadFromFdroid org.microg.nlp.backend.nominatim
 
+#Web browser
+#~ downloadFromFdroid org.mozilla.fennec_fdroid "Browser2 QuickSearchBox"
+#Public transportation
+#~ downloadFromFdroid de.grobox.liberario
+#Ciphered Instant Messaging
+#downloadFromFdroid im.vector.alpha
+#Nextcloud client
+#~ downloadFromFdroid com.nextcloud.client
+# Social Media Apps
 #~ downloadFromFdroid org.mariotaku.twidere
 #~ downloadFromFdroid com.pitchedapps.frost
 #~ downloadFromFdroid com.keylesspalace.tusky
-
-#Fake assistant that research on duckduckgo
-downloadFromFdroid co.pxhouse.sas
-
-downloadFromFdroid com.simplemobiletools.gallery.pro "Photos Gallery Gallery2"
-
-downloadFromFdroid com.aurora.adroid
 
 repo=https://microg.org/fdroid/repo/
 downloadFromFdroid com.google.android.gms
 downloadFromFdroid com.google.android.gsf
 downloadFromFdroid com.android.vending
 downloadFromFdroid org.microg.gms.droidguard
+
+repo=https://nanolx.org/fdroid/repo/
+downloadFromFdroid is.xyz.mpv
 
 echo >> apps.mk
 
