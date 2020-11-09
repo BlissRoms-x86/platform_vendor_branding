@@ -5,17 +5,17 @@ repo="https://f-droid.org/repo/"
 
 addCopy() {
 	addition=""
-	if unzip bin/$1 lib/* > /dev/null 2>&1 ; then
-		echo "Extracting libs for: $2"
-		addition="
-			LOCAL_PREBUILT_JNI_LIBS := \\
-			$(unzip -lv bin/$1 |grep -v Stored |sed -nE 's;.*(lib/arm64-v8a/.*);\t\1 \\;p') \\
-			$(unzip -lv bin/$1 |grep -v Stored |sed -nE 's;.*(lib/x86/.*);\t\1 \\;p') \\
-			$(unzip -lv bin/$1 |grep -v Stored |sed -nE 's;.*(lib/x86_64/.*);\t\1 \\;p')
-					"
-	else 
-		echo "Skipping lib extraction for: $2"
-	fi
+	#~ if unzip bin/$1 lib/* > /dev/null 2>&1 ; then
+		#~ echo "Extracting libs for: $2"
+		#~ addition="
+			#~ LOCAL_PREBUILT_JNI_LIBS := \\
+			#~ $(unzip -lv bin/$1 |grep -v Stored |sed -nE 's;.*(lib/arm64-v8a/.*);\t\1 \\;p') \\
+			#~ $(unzip -lv bin/$1 |grep -v Stored |sed -nE 's;.*(lib/x86/.*);\t\1 \\;p') \\
+			#~ $(unzip -lv bin/$1 |grep -v Stored |sed -nE 's;.*(lib/x86_64/.*);\t\1 \\;p')
+					#~ "
+	#~ else 
+		#~ echo "Skipping lib extraction for: $2"
+	#~ fi
     if [ "$2" == com.google.android.gms ] || [ "$2" == com.android.vending ] ;then
         addition="LOCAL_PRIVILEGED_MODULE := true"
     fi
