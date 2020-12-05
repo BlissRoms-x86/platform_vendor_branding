@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # Copyright (C) 2012-2013, The CyanogenMod Project
 #           (C) 2017,      The LineageOS Project
+#           (C) 2020       The LibreMobileOS Foundation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -52,38 +53,38 @@ except:
     device = product
 
 if not depsonly:
-    print("Device %s not found. Attempting to retrieve device repository from LineageOS Github (http://github.com/LineageOS)." % device)
+    print("Device %s not found. Attempting to retrieve device repository from LMODroid-Devices of LMO Git (https://git.libremobileos.com/LMODroid-Devices)." % device)
 
 repositories = []
 
 try:
-    authtuple = netrc.netrc().authenticators("api.github.com")
+    authtuple = netrc.netrc().authenticators("git.libremobileos.com")
 
     if authtuple:
-        auth_string = ('%s:%s' % (authtuple[0], authtuple[2])).encode()
-        githubauth = base64.encodestring(auth_string).decode().replace('\n', '')
+        gitlmoauth = authtuple[0]
     else:
-        githubauth = None
+        gitlmoauth = None
 except:
-    githubauth = None
+    gitlmoauth = None
 
-def add_auth(githubreq):
-    if githubauth:
-        githubreq.add_header("Authorization","Basic %s" % githubauth)
+def add_auth(gitlmoreq):
+    if gitlmoauth:
+        gitlmoreq.add_header("Authorization","Bearer %s" % gitlmoauth)
 
 if not depsonly:
-    githubreq = urllib.request.Request("https://api.github.com/search/repositories?q=%s+user:LineageOS+in:name+fork:true" % device)
-    add_auth(githubreq)
+    gitlmoreq = urllib.request.Request("https://git.libremobileos.com/api/v4/groups/LMODroid-Devices")
+    add_auth(gitlmoreq)
     try:
-        result = json.loads(urllib.request.urlopen(githubreq).read().decode())
+        result = json.loads(urllib.request.urlopen(gitlmoreq).read().decode())
     except urllib.error.URLError:
-        print("Failed to search GitHub")
+        print("Failed to get devices repos")
         sys.exit()
     except ValueError:
-        print("Failed to parse return data from GitHub")
+        print("Failed to parse return data from LMO git")
         sys.exit()
-    for res in result.get('items', []):
-        repositories.append(res)
+    for project in result.get('projects', []):
+        if device in project["name"]:
+            repositories.append(project)
 
 local_manifests = r'.repo/local_manifests'
 if not os.path.exists(local_manifests): os.makedirs(local_manifests)
@@ -124,10 +125,12 @@ def get_manifest_path():
         return ".repo/manifests/{}".format(m.find("include").get("name"))
 
 def get_default_revision():
-    m = ElementTree.parse(get_manifest_path())
-    d = m.findall('default')[0]
-    r = d.get('revision')
-    return r.replace('refs/heads/', '').replace('refs/tags/', '')
+    m = ElementTree.parse(".repo/manifests/snippets/lmodroid.xml")
+    d = m.findall('remote')
+    for n in d:
+        if n.get('name') == 'lmodroid':
+            r = n.get('revision')
+            return r.replace('refs/heads/', '').replace('refs/tags/', '')
 
 def get_from_manifest(devicename):
     try:
@@ -137,7 +140,7 @@ def get_from_manifest(devicename):
         lm = ElementTree.Element("manifest")
 
     for localpath in lm.findall("project"):
-        if re.search("android_device_.*_%s$" % device, localpath.get("name")):
+        if re.search("device_.*_%s$" % device, localpath.get("name")):
             return localpath.get("path")
 
     return None
@@ -164,9 +167,9 @@ def is_in_manifest(projectpath):
         if localpath.get("path") == projectpath:
             return True
 
-    # ... and don't forget the lineage snippet
+    # ... and don't forget the lmodroid snippet
     try:
-        lm = ElementTree.parse(".repo/manifests/snippets/lineage.xml")
+        lm = ElementTree.parse(".repo/manifests/snippets/lmodroid.xml")
         lm = lm.getroot()
     except:
         lm = ElementTree.Element("manifest")
@@ -189,12 +192,17 @@ def add_to_manifest(repositories, fallback_branch = None):
         repo_target = repository['target_path']
         print('Checking if %s is fetched from %s' % (repo_target, repo_name))
         if is_in_manifest(repo_target):
-            print('LineageOS/%s already fetched to %s' % (repo_name, repo_target))
+            print('%s already fetched to %s' % (repo_name, repo_target))
             continue
 
-        print('Adding dependency: LineageOS/%s -> %s' % (repo_name, repo_target))
+        if 'remote' in repository:
+            repo_remote=repository['remote']
+        else:
+            repo_remote='lmodroid'
+
+        print('Adding dependency: %s' % repo_name)
         project = ElementTree.Element("project", attrib = { "path": repo_target,
-            "remote": "github", "name": "LineageOS/%s" % repo_name })
+            "remote": repo_remote, "name": repo_name })
 
         if 'branch' in repository:
             project.set('revision',repository['branch'])
@@ -216,7 +224,7 @@ def add_to_manifest(repositories, fallback_branch = None):
 
 def fetch_dependencies(repo_path, fallback_branch = None):
     print('Looking for dependencies in %s' % repo_path)
-    dependencies_path = repo_path + '/lineage.dependencies'
+    dependencies_path = repo_path + '/lmodroid.dependencies'
     syncable_repos = []
     verify_repos = []
 
@@ -263,26 +271,24 @@ if depsonly:
 else:
     for repository in repositories:
         repo_name = repository['name']
-        if re.match(r"^android_device_[^_]*_" + device + "$", repo_name):
+        if re.match(r"^device_[^_]*_" + device + "$", repo_name):
             print("Found repository: %s" % repository['name'])
             
-            manufacturer = repo_name.replace("android_device_", "").replace("_" + device, "")
+            manufacturer = repo_name.replace("device_", "").replace("_" + device, "")
             
             default_revision = get_default_revision()
             print("Default revision: %s" % default_revision)
             print("Checking branch info")
-            githubreq = urllib.request.Request(repository['branches_url'].replace('{/branch}', ''))
-            add_auth(githubreq)
-            result = json.loads(urllib.request.urlopen(githubreq).read().decode())
+            gitlmoreq = urllib.request.Request(repository['_links']['repo_branches'])
+            add_auth(gitlmoreq)
+            result = json.loads(urllib.request.urlopen(gitlmoreq).read().decode())
 
             ## Try tags, too, since that's what releases use
             if not has_branch(result, default_revision):
-                githubreq = urllib.request.Request(repository['tags_url'].replace('{/tag}', ''))
-                add_auth(githubreq)
-                result.extend (json.loads(urllib.request.urlopen(githubreq).read().decode()))
+                result.extend (repository['tag_list'])
             
             repo_path = "device/%s/%s" % (manufacturer, device)
-            adding = {'repository':repo_name,'target_path':repo_path}
+            adding = {'repository':repository['path_with_namespace'],'target_path':repo_path}
             
             fallback_branch = None
             if not has_branch(result, default_revision):
@@ -312,4 +318,4 @@ else:
             print("Done")
             sys.exit()
 
-print("Repository for %s not found in the LineageOS Github repository list. If this is in error, you may need to manually add it to your local_manifests/roomservice.xml." % device)
+print("Repository for %s not found in the LMODroid Git repository list. If this is in error, you may need to manually add it to your local_manifests/roomservice.xml." % device)

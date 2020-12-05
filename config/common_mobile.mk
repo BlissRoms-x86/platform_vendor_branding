@@ -1,5 +1,5 @@
-# Inherit common mobile Lineage stuff
-$(call inherit-product, vendor/lineage/config/common.mk)
+# Inherit common mobile LMODroid stuff
+$(call inherit-product, vendor/lmodroid/config/common.mk)
 
 # Default notification/alarm sounds
 PRODUCT_PRODUCT_PROPERTIES += \
@@ -17,41 +17,10 @@ PRODUCT_PACKAGES += \
     ExactCalculator \
     Exchange2
 
-# Lineage packages
-PRODUCT_PACKAGES += \
-    AudioFX \
-    Backgrounds \
-    Eleven \
-    Etar \
-    Jelly \
-    Profiles \
-    Seedvault \
-    TrebuchetQuickStep
-
-# Accents
-PRODUCT_PACKAGES += \
-    LineageBlackTheme \
-    LineageBlackAccent \
-    LineageBlueAccent \
-    LineageBrownAccent \
-    LineageCyanAccent \
-    LineageGreenAccent \
-    LineageOrangeAccent \
-    LineagePinkAccent \
-    LineagePurpleAccent \
-    LineageRedAccent \
-    LineageYellowAccent
-
 # Charger
 PRODUCT_PACKAGES += \
     charger_res_images
-
-# Customizations
-PRODUCT_PACKAGES += \
-    IconShapeSquareOverlay \
-    LineageNavigationBarNoHint \
-    NavigationBarMode2ButtonOverlay
-
+    
 # Media
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     media.recorder.show_manufacturer_and_model=true
