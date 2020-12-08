@@ -1,4 +1,3 @@
-#
 # Copyright (C) 2018-2020 The LineageOS Project
 # Copyright (C) 2020 The LibreMobileOS Foundation
 #
@@ -13,24 +12,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/lmodroid_arm.mk \
-    $(LOCAL_DIR)/lmodroid_arm64.mk \
-    $(LOCAL_DIR)/lmodroid_x86.mk \
-    $(LOCAL_DIR)/lmodroid_x86_64.mk \
-    $(LOCAL_DIR)/lmodroid_tv_arm.mk \
-    $(LOCAL_DIR)/lmodroid_tv_arm64.mk \
-    $(LOCAL_DIR)/lmodroid_tv_x86.mk \
-    $(LOCAL_DIR)/lmodroid_tv_x86_64.mk
+$(call inherit-product, device/google/atv/products/aosp_tv_x86.mk)
 
-COMMON_LUNCH_CHOICES := \
-    lmodroid_arm-userdebug \
-    lmodroid_arm64-userdebug \
-    lmodroid_x86-userdebug \
-    lmodroid_x86_64-userdebug \
-    lmodroid_tv_arm-userdebug \
-    lmodroid_tv_arm64-userdebug \
-    lmodroid_tv_x86-userdebug \
-    lmodroid_tv_x86_64-userdebug
+include vendor/lmodroid/build/target/product/lmodroid_generic_tv_target.mk
+
+TARGET_USES_64_BIT_BINDER := true
+
+PRODUCT_NAME := lmodroid_tv_x86
+
+PRODUCT_ENFORCE_ARTIFACT_PATH_REQUIREMENTS :=
+
+PRODUCT_SDK_ADDON_NAME := lmodroid
+PRODUCT_SDK_ADDON_SYS_IMG_SOURCE_PROP := $(LOCAL_PATH)/source.properties
