@@ -14,25 +14,38 @@
 # limitations under the License.
 
 # LMODroid versions
-LMODROID_BUILD_TYPE ?= UNOFFICIAL
+
+# Set LMODROID_BUILDTYPE from the env RELEASE_TYPE, for jenkins compat
+ifndef LMODROID_BUILDTYPE
+    ifdef RELEASE_TYPE
+        # Starting with "LMODROID_" is optional
+        RELEASE_TYPE := $(shell echo $(RELEASE_TYPE) | sed -e 's|^LMODROID_||g')
+        LMODROID_BUILDTYPE := $(RELEASE_TYPE)
+    endif
+endif
+
+# Filter out random types, so it'll reset to UNOFFICIAL
+ifeq ($(filter RELEASE NIGHTLY WEEKLY EXPERIMENTAL,$(LMODROID_BUILDTYPE)),)
+    LMODROID_BUILDTYPE := UNOFFICIAL
+endif
 
 DATE_YEAR := $(shell date -u +%y)
 DATE_MONTH := $(shell date -u +%m)
 DATE_DAY := $(shell date -u +%d)
 DATE_HOUR := $(shell date -u +%H)
 DATE_MINUTE := $(shell date -u +%M)
-BUILD_DATE_UTC := $(shell date -d '$(DATE_YEAR)-$(DATE_MONTH)-$(DATE_DAY) $(DATE_HOUR):$(DATE_MINUTE) UTC' +%s)
-BUILD_DATE := $(DATE_YEAR)$(DATE_MONTH)$(DATE_DAY)-$(DATE_HOUR)$(DATE_MINUTE)
+ifeq ($(filter UNOFFICIAL,$(LMODROID_BUILDTYPE)),)
+    BUILD_DATE := $(DATE_YEAR)$(DATE_MONTH)$(DATE_DAY)
+else
+    BUILD_DATE := $(DATE_YEAR)$(DATE_MONTH)$(DATE_DAY)-$(DATE_HOUR)$(DATE_MINUTE)
+endif
 
 LMODROID_VERSION := 2.0
 
-TARGET_PRODUCT_SHORT := $(subst lmodroid_,,$(LMODROID_BUILD))
-
-LMODROID_BUILD_NAME := LMODroid-$(LMODROID_BUILD)-$(LMODROID_VERSION)-$(BUILD_DATE)-$(LMODROID_BUILD_TYPE)
+LMODROID_BUILD_NAME := LMODroid-$(LMODROID_VERSION)-$(BUILD_DATE)-$(LMODROID_BUILDTYPE)-$(LMODROID_BUILD)
 
 LMODROID_PROPERTIES := \
     ro.lmodroid.build_name=$(LMODROID_BUILD_NAME) \
     ro.lmodroid.build_date=$(BUILD_DATE) \
-    ro.lmodroid.build_date_utc=$(BUILD_DATE_UTC) \
     ro.lmodroid.build_type=$(LMODROID_BUILD_TYPE) \
     ro.lmodroid.version=$(LMODROID_VERSION)
