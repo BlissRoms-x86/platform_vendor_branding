@@ -101,6 +101,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Updater
 
+# Prebuilt apps
+PRODUCT_PACKAGES += \
+    KiwiBrowser \
+    MusicPlayerGO
+
 # Themes
 PRODUCT_PACKAGES += \
     ThemePicker
