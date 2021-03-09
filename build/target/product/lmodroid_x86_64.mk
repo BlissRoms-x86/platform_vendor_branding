@@ -19,5 +19,4 @@ include vendor/lmodroid/build/target/product/lmodroid_generic_target.mk
 
 PRODUCT_NAME := lmodroid_x86_64
 
-PRODUCT_SDK_ADDON_NAME := lmodroid
 PRODUCT_SDK_ADDON_SYS_IMG_SOURCE_PROP := $(LOCAL_PATH)/source.properties
