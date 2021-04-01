@@ -95,6 +95,8 @@ downloadFromFdroid org.microg.nlp.backend.ichnaea
 downloadFromFdroid org.microg.nlp.backend.nominatim
 # Midori Browser
 downloadFromFdroid org.midorinext.android
+# EtchDroid USB Writer
+downloadFromFdroid eu.depau.etchdroid
 
 #Web browser
 #~ downloadFromFdroid org.mozilla.fennec_fdroid "Browser2 QuickSearchBox"
