@@ -1,6 +1,13 @@
 #!/bin/bash
 set -e
 
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+LT_BLUE='\033[0;34m'
+
+NC='\033[0m' # No Color
+
 repo="https://f-droid.org/repo/"
 
 addCopy() {
@@ -34,6 +41,7 @@ EOF
 echo -e "\t$2 \\" >> apps.mk
 }
 
+echo -e "${LT_BLUE}# Setting Up${NC}"
 rm -Rf apps.mk lib
 cat > Android.mk <<EOF
 LOCAL_PATH := \$(my-dir)
@@ -60,7 +68,7 @@ downloadFromFdroid() {
     fi
 	addCopy $apk $1 "$2"
 }
-
+echo -e "${YELLOW}# grabbing F-Droid Apps${NC}"
 # Terminal Emulator
 downloadFromFdroid com.termoneplus
 #Navigation
@@ -111,15 +119,22 @@ downloadFromFdroid eu.depau.etchdroid
 #~ downloadFromFdroid com.pitchedapps.frost
 #~ downloadFromFdroid com.keylesspalace.tusky
 
+echo -e "${YELLOW}# grabbing MicroG Apps${NC}"
 repo=https://microg.org/fdroid/repo/
 downloadFromFdroid com.google.android.gms
 downloadFromFdroid com.google.android.gsf
 downloadFromFdroid com.android.vending
 downloadFromFdroid org.microg.gms.droidguard
+downloadFromFdroid org.microg.unifiednlp
 
+echo -e "${YELLOW}# grabbing NanoLX Apps${NC}"
 repo=https://nanolx.org/fdroid/repo/
 downloadFromFdroid is.xyz.mpv
 
+echo -e "${LT_BLUE}# finishing up apps.mk${NC}"
 echo >> apps.mk
 
+echo -e "${YELLOW}# Cleaning up${NC}"
 rm -Rf tmp
+
+echo -e "${GREEN}# DONE${NC}"
