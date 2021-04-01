@@ -69,6 +69,8 @@ downloadFromFdroid ws.xsoh.etar Calendar
 downloadFromFdroid com.artifex.mupdf.viewer.app
 # Aurora App Store
 downloadFromFdroid com.aurora.store
+# F-Droid App Store
+downloadFromFdroid org.fdroid.fdroid
 #Mail client
 downloadFromFdroid com.fsck.k9 "Email"
 #Calendar/Contacts sync
