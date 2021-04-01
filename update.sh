@@ -91,6 +91,8 @@ downloadFromFdroid me.jfenn.alarmio "GoogleClock DeskClock"
 downloadFromFdroid org.microg.nlp.backend.ichnaea
 #Nominatim Nlp
 downloadFromFdroid org.microg.nlp.backend.nominatim
+# Midori Browser
+downloadFromFdroid org.midorinext.android
 
 #Web browser
 #~ downloadFromFdroid org.mozilla.fennec_fdroid "Browser2 QuickSearchBox"
