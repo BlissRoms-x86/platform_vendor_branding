@@ -61,6 +61,8 @@ downloadFromFdroid() {
 	addCopy $apk $1 "$2"
 }
 
+# Terminal Emulator
+downloadFromFdroid com.termoneplus
 #Navigation
 downloadFromFdroid net.osmand.plus
 #Calendar
