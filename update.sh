@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+#~ set -e
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -10,19 +10,28 @@ NC='\033[0m' # No Color
 
 repo="https://f-droid.org/repo/"
 
+MAIN_ARCH="x86_64"
+SUB_ARCH="x86"
+
 addCopy() {
 	addition=""
-	#~ if unzip bin/$1 lib/* > /dev/null 2>&1 ; then
-		#~ echo "Extracting libs for: $2"
-		#~ addition="
-			#~ LOCAL_PREBUILT_JNI_LIBS := \\
-			#~ $(unzip -lv bin/$1 |grep -v Stored |sed -nE 's;.*(lib/arm64-v8a/.*);\t\1 \\;p') \\
-			#~ $(unzip -lv bin/$1 |grep -v Stored |sed -nE 's;.*(lib/x86/.*);\t\1 \\;p') \\
-			#~ $(unzip -lv bin/$1 |grep -v Stored |sed -nE 's;.*(lib/x86_64/.*);\t\1 \\;p')
-					#~ "
-	#~ else 
-		#~ echo "Skipping lib extraction for: $2"
-	#~ fi
+	if [ "$native" != "" ]
+	then
+		unzip bin/$1 "lib/*"
+		if [ "$native" == "$MAIN_ARCH" ];then
+			addition="
+LOCAL_PREBUILT_JNI_LIBS := \\
+$(unzip -lv bin/$1 |grep -v Stored |sed -nE 's;.*(lib/'"$MAIN_ARCH"'/.*);\t\1 \\;p')
+			"
+		fi
+		if [ "$native" == "$SUB_ARCH" ];then
+			addition="
+LOCAL_MULTILIB := 32
+LOCAL_PREBUILT_JNI_LIBS := \\
+$(unzip -lv bin/$1 |grep -v Stored |sed -nE 's;.*(lib/'"$SUB_ARCH"'/.*);\t\1 \\;p')
+			"
+		fi
+	fi
     if [ "$2" == com.google.android.gms ] || [ "$2" == com.android.vending ] ;then
         addition="LOCAL_PRIVILEGED_MODULE := true"
     fi
@@ -61,8 +70,52 @@ downloadFromFdroid() {
 		wget --connect-timeout=10 $repo/index.jar -O tmp/index.jar
 		unzip -p tmp/index.jar index.xml > tmp/index.xml
 	fi
-	marketvercode="$(xmlstarlet sel -t -m '//application[id="'"$1"'"]' -v ./marketvercode tmp/index.xml || true)"
-	apk="$(xmlstarlet sel -t -m '//application[id="'"$1"'"]/package[versioncode="'"$marketvercode"'"]' -v ./apkname tmp/index.xml || xmlstarlet sel -t -m '//application[id="'"$1"'"]/package[1]' -v ./apkname tmp/index.xml)"
+	
+	index=1
+	apk="$(xmlstarlet sel -t -m '//application[id="'"$1"'"]/package['$index']' -v ./apkname tmp/index.xml)"
+	native="$(xmlstarlet sel -t -m '//application[id="'"$1"'"]/package['$index']' -v ./nativecode tmp/index.xml)"
+	if [ "$native" != "" ]
+	then
+		index=1
+		while true
+		do
+			apk="$(xmlstarlet sel -t -m '//application[id="'"$1"'"]/package['$index']' -v ./apkname tmp/index.xml)"
+			native="$(xmlstarlet sel -t -m '//application[id="'"$1"'"]/package['$index']' -v ./nativecode tmp/index.xml)"
+			if [ "$native" != "" ] && [ "$(echo $native | grep $MAIN_ARCH)" != "" ]
+			then
+				native=$MAIN_ARCH
+				echo -e "${YELLOW}# native is $native ${NC}"
+				break
+			fi
+			if [ "$native" == "" ]
+			then
+				echo -e "${YELLOW}# native is blank or $native ${NC}"
+				break
+			fi
+			index=$((index + 1))
+		done
+		if [ "$native" != "$MAIN_ARCH" ]
+		then
+			index=1
+			while true
+			do
+				apk="$(xmlstarlet sel -t -m '//application[id="'"$1"'"]/package['$index']' -v ./apkname tmp/index.xml)"
+				native="$(xmlstarlet sel -t -m '//application[id="'"$1"'"]/package['$index']' -v ./nativecode tmp/index.xml)"
+				if [ "$native" != "" ] && [ "$(echo $native | grep $SUB_ARCH)" != "" ]
+				then
+					native=$SUB_ARCH
+					echo -e "${YELLOW}# native is $native ${NC}"
+					break
+				fi
+				index=$((index + 1))
+			done
+			if [ "$native" != "$SUB_ARCH" ]
+			then
+				echo -e "${RED} $1 is not available in $MAIN_ARCH nor $SUB_ARCH ${NC}"
+				exit 1
+			fi
+		fi
+	fi
     if [ ! -f bin/$apk ];then
         while ! wget --connect-timeout=10 $repo/$apk -O bin/$apk;do sleep 1;done
     else
@@ -70,6 +123,7 @@ downloadFromFdroid() {
     fi
 	addCopy $apk $1 "$2"
 }
+
 echo -e "${YELLOW}# grabbing F-Droid Apps${NC}"
 # Terminal Emulator
 downloadFromFdroid com.termoneplus
@@ -95,6 +149,8 @@ downloadFromFdroid com.simplemobiletools.gallery.pro "Photos Gallery Gallery2"
 downloadFromFdroid com.aurora.adroid
 # F-Droid App Store
 #~ downloadFromFdroid org.fdroid.fdroid
+#fdroid extension
+#~ downloadFromFdroid org.fdroid.fdroid.privileged
 #Phonograph
 downloadFromFdroid com.kabouzeid.gramophone "Eleven"
 #Alarmio
