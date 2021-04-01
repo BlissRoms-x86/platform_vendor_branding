@@ -10,8 +10,35 @@ NC='\033[0m' # No Color
 
 repo="https://f-droid.org/repo/"
 
-MAIN_ARCH="x86_64"
-SUB_ARCH="x86"
+# Device type selection	
+PS3='Which device type do you plan on building?: '
+echo -e ${CL_CYN}"(default is 'ABI:x86_64 & ABI2:x86')"
+TMOUT=10
+options=("ABI:x86_64 & ABI2:x86"
+		 "ABI:arm64-v8a & ABI2:armeabi-v7a")
+echo "Timeout in $TMOUT sec."${CL_RST}
+select opt in "${options[@]}"
+do
+	case $opt in
+		"ABI:x86_64 & ABI2:x86")
+			echo "you chose choice $REPLY which is $opt"
+			MAIN_ARCH="x86_64"
+			SUB_ARCH="x86"	
+			break
+			;;
+		"ABI:arm64-v8a & ABI2:armeabi-v7a")
+			echo "you chose choice $REPLY which is $opt"
+			MAIN_ARCH="arm64-v8a"
+			SUB_ARCH="armeabi-v7a"
+			break
+			;;
+		*) echo "invalid option $REPLY";;
+	esac
+done
+if [ "$opt" == "" ]; then
+	MAIN_ARCH="x86_64"
+	SUB_ARCH="x86"	
+fi
 
 addCopy() {
 	addition=""
