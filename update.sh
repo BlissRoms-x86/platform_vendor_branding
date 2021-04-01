@@ -65,6 +65,8 @@ downloadFromFdroid() {
 	apk="$(xmlstarlet sel -t -m '//application[id="'"$1"'"]/package[versioncode="'"$marketvercode"'"]' -v ./apkname tmp/index.xml || xmlstarlet sel -t -m '//application[id="'"$1"'"]/package[1]' -v ./apkname tmp/index.xml)"
     if [ ! -f bin/$apk ];then
         while ! wget --connect-timeout=10 $repo/$apk -O bin/$apk;do sleep 1;done
+    else
+		echo -e "${GREEN}# Already grabbed $apk ${NC}"
     fi
 	addCopy $apk $1 "$2"
 }
@@ -74,13 +76,11 @@ downloadFromFdroid com.termoneplus
 #Navigation
 downloadFromFdroid net.osmand.plus
 #Calendar
-downloadFromFdroid ws.xsoh.etar Calendar
+downloadFromFdroid ws.xsoh.etar "Calendar"
 #Pdf viewer
 downloadFromFdroid com.artifex.mupdf.viewer.app
 # Aurora App Store
 downloadFromFdroid com.aurora.store
-# F-Droid App Store
-downloadFromFdroid org.fdroid.fdroid
 #Mail client
 downloadFromFdroid com.fsck.k9 "Email"
 #Calendar/Contacts sync
@@ -93,6 +93,8 @@ downloadFromFdroid co.pxhouse.sas
 downloadFromFdroid com.simplemobiletools.gallery.pro "Photos Gallery Gallery2"
 # Aurora Fdroid
 downloadFromFdroid com.aurora.adroid
+# F-Droid App Store
+#~ downloadFromFdroid org.fdroid.fdroid
 #Phonograph
 downloadFromFdroid com.kabouzeid.gramophone "Eleven"
 #Alarmio
@@ -102,7 +104,7 @@ downloadFromFdroid org.microg.nlp.backend.ichnaea
 #Nominatim Nlp
 downloadFromFdroid org.microg.nlp.backend.nominatim
 # Midori Browser
-downloadFromFdroid org.midorinext.android
+downloadFromFdroid org.midorinext.android "Browser2 QuickSearchBox"
 # EtchDroid USB Writer
 downloadFromFdroid eu.depau.etchdroid
 
@@ -125,7 +127,6 @@ downloadFromFdroid com.google.android.gms
 downloadFromFdroid com.google.android.gsf
 downloadFromFdroid com.android.vending
 downloadFromFdroid org.microg.gms.droidguard
-downloadFromFdroid org.microg.unifiednlp
 
 echo -e "${YELLOW}# grabbing NanoLX Apps${NC}"
 repo=https://nanolx.org/fdroid/repo/
