@@ -190,6 +190,8 @@ downloadFromFdroid org.microg.nlp.backend.nominatim
 downloadFromFdroid org.midorinext.android "Browser2 QuickSearchBox"
 # EtchDroid USB Writer
 downloadFromFdroid eu.depau.etchdroid
+# NewPipe
+downloadFromFdroid org.schabi.newpipe
 
 #Web browser
 #~ downloadFromFdroid org.mozilla.fennec_fdroid "Browser2 QuickSearchBox"
