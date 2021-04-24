@@ -29,6 +29,7 @@ nanolx="https://nanolx.org/fdroid/repo"
 nanolx_dir="tmp/nanolx"
 
 # Device type selection	
+if [ "$1" == "" ]; then
 PS3='Which device type do you plan on building?: '
 echo -e ${YELLOW}"(default is 'ABI:x86_64 & ABI2:x86')"
 TMOUT=10
@@ -57,6 +58,18 @@ if [ "$opt" == "" ]; then
 	MAIN_ARCH="x86_64"
 	SUB_ARCH="x86"	
 fi
+fi
+
+if [ "$1" == "1" ]; then
+	echo "ABI:x86_64 & ABI2:x86 was preselected"
+	MAIN_ARCH="x86_64"
+	SUB_ARCH="x86"	
+fi
+if [ "$1" == "2" ]; then
+	echo "ABI:arm64-v8a & ABI2:armeabi-v7a was preselected"
+	MAIN_ARCH="arm64-v8a"
+	SUB_ARCH="armeabi-v7a"
+fi
 
 addCopy() {
 	addition=""
@@ -66,14 +79,14 @@ addCopy() {
 		if [ "$native" == "$MAIN_ARCH" ];then
 			addition="
 LOCAL_PREBUILT_JNI_LIBS := \\
-$(unzip -lv bin/$1 |grep -v Stored |sed -nE 's;.*(lib/'"$MAIN_ARCH"'/.*);\t\1 \\;p')
+$(unzip -olv bin/$1 |grep -v Stored |sed -nE 's;.*(lib/'"$MAIN_ARCH"'/.*);\t\1 \\;p')
 			"
 		fi
 		if [ "$native" == "$SUB_ARCH" ];then
 			addition="
 LOCAL_MULTILIB := 32
 LOCAL_PREBUILT_JNI_LIBS := \\
-$(unzip -lv bin/$1 |grep -v Stored |sed -nE 's;.*(lib/'"$SUB_ARCH"'/.*);\t\1 \\;p')
+$(unzip -olv bin/$1 |grep -v Stored |sed -nE 's;.*(lib/'"$SUB_ARCH"'/.*);\t\1 \\;p')
 			"
 		fi
 	fi
@@ -250,7 +263,7 @@ downloadFromFdroid com.aurora.adroid
 # F-Droid App Store
 #~ downloadFromFdroid org.fdroid.fdroid
 #fdroid extension
-#~ downloadFromFdroid org.fdroid.fdroid.privileged
+downloadFromFdroid org.fdroid.fdroid.privileged
 #Phonograph
 downloadFromFdroid com.kabouzeid.gramophone "Eleven"
 #Alarmio
@@ -259,12 +272,20 @@ downloadFromFdroid me.jfenn.alarmio "GoogleClock DeskClock"
 downloadFromFdroid org.microg.nlp.backend.ichnaea
 #Nominatim Nlp
 downloadFromFdroid org.microg.nlp.backend.nominatim
-# Midori Browser
-downloadFromFdroid org.midorinext.android "Browser2 QuickSearchBox"
 # EtchDroid USB Writer
 downloadFromFdroid eu.depau.etchdroid
 # NewPipe
 downloadFromFdroid org.schabi.newpipe
+
+#  Astian Apps
+# Midori Browser
+downloadFromFdroid org.midorinext.android "Browser2 QuickSearchBox"
+# Astian Spika
+# downloadFromFdroid org.astianspika.android
+# Astian Cloud
+# downloadFromFdroid org.astiancloud.android
+# Astian VPN
+# downloadFromFdroid org.astianvpn.android
 
 #Web browser
 #~ downloadFromFdroid org.mozilla.fennec_fdroid "Browser2 QuickSearchBox"
