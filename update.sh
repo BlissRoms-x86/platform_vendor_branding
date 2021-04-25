@@ -249,7 +249,7 @@ downloadFromFdroid com.artifex.mupdf.viewer.app
 # Aurora App Store
 downloadFromFdroid com.aurora.store
 #Mail client
-downloadFromFdroid com.fsck.k9 "Email"
+#~ downloadFromFdroid com.fsck.k9 "Email"
 #Calendar/Contacts sync
 downloadFromFdroid com.etesync.syncadapter
 # Todo lists
