@@ -28,6 +28,9 @@ microg_dir="tmp/microg"
 nanolx="https://nanolx.org/fdroid/repo"
 nanolx_dir="tmp/nanolx"
 
+newpipe="https://archive.newpipe.net/fdroid/repo/"
+newpipe_dir="tmp/newpipe"
+
 # Device type selection	
 if [ "$1" == "" ]; then
 PS3='Which device type do you plan on building?: '
@@ -239,13 +242,13 @@ downloadFromRepo() {
 
 echo -e "${YELLOW}# grabbing F-Droid Apps${NC}"
 # Terminal Emulator
-downloadFromFdroid com.termoneplus
+#~ downloadFromFdroid com.termoneplus
 #Navigation
-downloadFromFdroid net.osmand.plus
+#~ downloadFromFdroid net.osmand.plus
 #Calendar
 downloadFromFdroid ws.xsoh.etar "Calendar"
 #Pdf viewer
-downloadFromFdroid com.artifex.mupdf.viewer.app
+#~ downloadFromFdroid com.artifex.mupdf.viewer.app
 # Aurora App Store
 downloadFromFdroid com.aurora.store
 #Mail client
@@ -253,7 +256,7 @@ downloadFromFdroid com.aurora.store
 #Calendar/Contacts sync
 downloadFromFdroid com.etesync.syncadapter
 # Todo lists
-downloadFromFdroid org.tasks
+#~ downloadFromFdroid org.tasks
 #Fake assistant that research on duckduckgo
 downloadFromFdroid co.pxhouse.sas
 # Gallery App
@@ -265,16 +268,16 @@ downloadFromFdroid com.aurora.adroid
 #fdroid extension
 downloadFromFdroid org.fdroid.fdroid.privileged
 #Phonograph
-downloadFromFdroid com.kabouzeid.gramophone "Eleven"
+#~ downloadFromFdroid com.kabouzeid.gramophone "Eleven"
 #Alarmio
-downloadFromFdroid me.jfenn.alarmio "GoogleClock DeskClock"
+#~ downloadFromFdroid me.jfenn.alarmio "GoogleClock DeskClock"
 #Mozilla Nlp
 downloadFromFdroid org.microg.nlp.backend.ichnaea
 #Nominatim Nlp
 downloadFromFdroid org.microg.nlp.backend.nominatim
 # EtchDroid USB Writer
-downloadFromFdroid eu.depau.etchdroid
-# NewPipe
+#~ downloadFromFdroid eu.depau.etchdroid
+# NewPipe (outdated)
 downloadFromFdroid org.schabi.newpipe
 
 #  Astian Apps
@@ -289,6 +292,8 @@ downloadFromFdroid org.midorinext.android "Browser2 QuickSearchBox"
 
 #Web browser
 #~ downloadFromFdroid org.mozilla.fennec_fdroid "Browser2 QuickSearchBox"
+#icecat 
+#~ downloadFromFdroid org.gnu.icecat "Browser2 QuickSearchBox"
 #Public transportation
 #~ downloadFromFdroid de.grobox.liberario
 #Ciphered Instant Messaging
@@ -308,6 +313,9 @@ downloadFromRepo "$microg" "$microg_dir" org.microg.gms.droidguard
 
 echo -e "${YELLOW}# grabbing NanoLX Apps${NC}"
 downloadFromRepo "$nanolx" "$nanolx_dir" is.xyz.mpv
+
+#~ echo -e "${YELLOW}# grabbing NewPipe ${NC}"
+#~ downloadFromRepo "$newpipe" "$newpipe_dir" org.schabi.newpip
 
 echo -e "${LT_BLUE}# finishing up apps.mk${NC}"
 echo >> apps.mk
