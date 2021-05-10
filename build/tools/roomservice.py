@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Copyright (C) 2012-2013, The CyanogenMod Project
-#           (C) 2017,      The LineageOS Project
+#           (C) 2017-2018,2020-2021, The LineageOS Project
 #           (C) 2020       The LibreMobileOS Foundation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -78,10 +78,10 @@ if not depsonly:
         result = json.loads(urllib.request.urlopen(gitlmoreq).read().decode())
     except urllib.error.URLError:
         print("Failed to get devices repos")
-        sys.exit()
+        sys.exit(1)
     except ValueError:
         print("Failed to parse return data from LMO git")
-        sys.exit()
+        sys.exit(1)
     for project in result.get('projects', []):
         if device in project["name"]:
             repositories.append(project)
