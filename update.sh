@@ -37,7 +37,8 @@ PS3='Which device type do you plan on building?: '
 echo -e ${YELLOW}"(default is 'ABI:x86_64 & ABI2:x86')"
 TMOUT=10
 options=("ABI:x86_64 & ABI2:x86"
-		 "ABI:arm64-v8a & ABI2:armeabi-v7a")
+		 "ABI:arm64-v8a & ABI2:armeabi-v7a"
+		 "ABI:x86")
 echo -e "Timeout in $TMOUT sec."${NC}
 select opt in "${options[@]}"
 do
@@ -52,6 +53,11 @@ do
 			echo "you chose choice $REPLY which is $opt"
 			MAIN_ARCH="arm64-v8a"
 			SUB_ARCH="armeabi-v7a"
+			break
+			;;
+		"ABI:x86")
+			echo "you chose choice $REPLY which is $opt"
+			MAIN_ARCH="x86"
 			break
 			;;
 		*) echo "invalid option $REPLY";;
@@ -72,6 +78,10 @@ if [ "$1" == "2" ]; then
 	echo "ABI:arm64-v8a & ABI2:armeabi-v7a was preselected"
 	MAIN_ARCH="arm64-v8a"
 	SUB_ARCH="armeabi-v7a"
+fi
+if [ "$1" == "3" ]; then
+	echo "ABI:x86 & ABI2:x86 was preselected"
+	MAIN_ARCH="x86"
 fi
 
 addCopy() {

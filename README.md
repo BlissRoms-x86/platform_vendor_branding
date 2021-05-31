@@ -17,6 +17,7 @@ A set of FOSS applications to include in an AOSP
 	 
 	- 1 = x86_64 ABI **default options**
 	- 2 = arm64-v8a ABI
+	- 3 = x86 ABI
 
 ## Included Apps:
 
