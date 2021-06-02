@@ -1,5 +1,5 @@
 #!/bin/bash
-#~ set -e
+# set -e
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -122,7 +122,7 @@ echo -e "\t$2 \\" >> apps.mk
 }
 
 echo -e "${LT_BLUE}# Setting Up${NC}"
-rm -Rf apps.mk lib
+rm -Rf apps.mk lib bin 
 cat > Android.mk <<EOF
 LOCAL_PATH := \$(my-dir)
 
@@ -161,7 +161,9 @@ downloadFromFdroid() {
 			
 		done
 		echo -e "${Yellow}# Total mirrors: ${#array[@]} ${NC}"
-		echo -e "${RED}# Failed $failed_count mirrors ${NC}"
+		if [ "$failed_count" >= 1 ]; then
+			echo -e "${RED}# Failed $failed_count mirrors ${NC}"
+		fi
 		if [ "$failed_count" == "${#array[@]}" ]; then
 			echo -e "${RED}# Failed too many mirrors: $failed_count ${NC}"
 			exit
@@ -239,7 +241,7 @@ downloadFromRepo() {
 		mkdir -p "$repo_dir"
 	if [ ! -f "$repo_dir"/index.xml ];then
 		downloadStuff "$repo"/index.jar "$repo_dir"/index.jar
-		unzip -p "$repo_dir"/index.jar index.xml > "$repo_dir"/index.xml
+		unzip -po "$repo_dir"/index.jar index.xml > "$repo_dir"/index.xml
 	fi
 	
 		marketvercode="$(xmlstarlet sel -t -m '//application[id="'"$package"'"]' -v ./marketvercode "$repo_dir"/index.xml || true)"
@@ -332,5 +334,7 @@ echo >> apps.mk
 
 echo -e "${YELLOW}# Cleaning up${NC}"
 rm -Rf tmp
+
+bash generate_perms.sh 
 
 echo -e "${GREEN}# DONE${NC}"

@@ -7,9 +7,10 @@ A set of FOSS applications to include in an AOSP
 
  - Supports F-Droid Mirrors - So if main repo fails, it will try the 
    rest of the mirrors from the F-Droid mirror list
- - Supports both arm64-v8a & x86_64 ABI through the use of Options
+ - Supports both arm64-v8a, x86 & x86_64 ABIs through the use of Options
+ - Generates foss-permissions.xml for including into AOSP based builds
  
-	##### Options Usage:
+##### Options Usage:
 	 
 	**If no option is passed, it will prompt you to make a choice**
 	 
@@ -19,27 +20,32 @@ A set of FOSS applications to include in an AOSP
 	- 2 = arm64-v8a ABI
 	- 3 = x86 ABI
 
+##### AOSP Build Instructions:
+
+To include the FOSS apps into your device specific builds. Please clone 
+this repo into vendor/foss:
+
+	$ git clone https://github.com/BlissRoms-x86/vendor_foss vendor/foss
+	
+Then add this inherit to your device tree:
+
+	# foss apps
+	$(call inherit-product-if-exists, vendor/foss/foss.mk)
+
 ## Included Apps:
 
 #### From F-Droid Repo:
 
-- Terminal Emulator - com.termoneplus
-- Navigation - net.osmand.plus
 - Calendar - ws.xsoh.etar
-- Pdf viewer - com.artifex.mupdf.viewer.app
 - Aurora App Store - com.aurora.store
 - Aurora Fdroid - com.aurora.adroid
-- K9 Mail client - com.fsck.k9
 - Calendar/Contacts sync - com.etesync.syncadapter
-- Todo lists - org.tasks
 - Fake assistant that uses duckduckgo - co.pxhouse.sas
 - Gallery App - com.simplemobiletools.gallery.pro
 - fdroid extension - org.fdroid.fdroid.privileged
-- Phonograph - com.kabouzeid.gramophone
 - Alarmio - me.jfenn.alarmio
 - Mozilla Nlp - org.microg.nlp.backend.ichnaea
 - Nominatim Nlp - org.microg.nlp.backend.nominatim
-- EtchDroid USB Writer - eu.depau.etchdroid
 - NewPipe - org.schabi.newpipe
 - Midori Browser - org.midorinext.android
 

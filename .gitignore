@@ -3,3 +3,4 @@ bin/
 Android.mk
 lib/
 wget-log*
+permissions/
