@@ -280,7 +280,7 @@ downloadFromFdroid org.fdroid.fdroid.privileged
 #Phonograph
 #~ downloadFromFdroid com.kabouzeid.gramophone "Eleven"
 #Alarmio
-#~ downloadFromFdroid me.jfenn.alarmio "GoogleClock DeskClock"
+ downloadFromFdroid me.jfenn.alarmio "GoogleClock DeskClock"
 #Mozilla Nlp
 downloadFromFdroid org.microg.nlp.backend.ichnaea
 #Nominatim Nlp
