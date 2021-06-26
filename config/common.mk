@@ -97,6 +97,10 @@ TARGET_SCREEN_HEIGHT ?= 1920
 PRODUCT_PACKAGES += \
     bootanimation.zip
 
+# Navbar
+PRODUCT_PACKAGES += \
+    NavigationBarNoHintOverlay
+
 # Updater
 PRODUCT_PACKAGES += \
     Updater
