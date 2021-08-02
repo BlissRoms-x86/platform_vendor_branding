@@ -211,8 +211,6 @@ PRODUCT_PACKAGE_OVERLAYS += \
 PRODUCT_PACKAGES += \
     NetworkStackOverlay
 
-DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += vendor/lmodroid/config/device_framework_matrix.xml
-
 # Translations
 PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += vendor/crowdin/overlay
 PRODUCT_PACKAGE_OVERLAYS += vendor/crowdin/overlay
