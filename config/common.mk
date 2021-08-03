@@ -170,7 +170,7 @@ PRODUCT_DEXPREOPT_SPEED_APPS += \
     SystemUI
 
 PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += vendor/lmodroid/overlay
-DEVICE_PACKAGE_OVERLAYS += vendor/lmodroid/overlay/common
+PRODUCT_PACKAGE_OVERLAYS += vendor/lmodroid/overlay/common
 
 # LMODroid versions
  include vendor/lmodroid/config/lmodroid_version.mk
