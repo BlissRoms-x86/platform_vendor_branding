@@ -71,11 +71,6 @@ include vendor/lmodroid/config/aosp_audio.mk
 # Include LMODroid audio files
 include vendor/lmodroid/config/lmodroid_audio.mk
 
-# TWRP
-ifeq ($(WITH_TWRP),true)
-include vendor/lmodroid/config/twrp.mk
-endif
-
 # Do not include art debug targets
 PRODUCT_ART_TARGET_INCLUDE_DEBUG_BUILD := false
 
