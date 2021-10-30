@@ -60,6 +60,11 @@ do
 			MAIN_ARCH="x86"
 			break
 			;;
+		"ABI:armeabi-v7a")
+			echo "you chose choice $REPLY which is $opt"
+			MAIN_ARCH="armeabi-v7a"
+			break
+			;;
 		*) echo "invalid option $REPLY";;
 	esac
 done
@@ -82,6 +87,10 @@ fi
 if [ "$1" == "3" ]; then
 	echo "ABI:x86 & ABI2:x86 was preselected"
 	MAIN_ARCH="x86"
+fi
+if [ "$1" == "4" ]; then
+	echo "ABI:armeabi-v7a was preselected"
+	MAIN_ARCH="armeabi-v7a"
 fi
 
 addCopy() {
