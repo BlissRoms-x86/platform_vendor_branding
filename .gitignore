@@ -4,3 +4,5 @@ Android.mk
 lib/
 wget-log*
 permissions/
+tmp/*
+=
