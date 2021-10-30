@@ -303,7 +303,7 @@ downloadFromFdroid org.schabi.newpipe
 
 #  Astian Apps
 # Midori Browser
-downloadFromFdroid org.midorinext.android "Browser2 QuickSearchBox"
+downloadFromFdroid org.midorinext.android "Browser2 QuickSearchBox Jelly"
 # Astian Spika
 # downloadFromFdroid org.astianspika.android
 # Astian Cloud
