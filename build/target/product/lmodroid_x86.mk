@@ -19,6 +19,9 @@ include vendor/lmodroid/build/target/product/lmodroid_generic_target.mk
 
 TARGET_USES_64_BIT_BINDER := true
 
+# Enable mainline checking
+PRODUCT_ENFORCE_ARTIFACT_PATH_REQUIREMENTS := relaxed
+
 PRODUCT_NAME := lmodroid_x86
 
 PRODUCT_SDK_ADDON_NAME := lmodroid
