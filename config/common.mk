@@ -50,10 +50,6 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 endif
 endif
 
-# Backup Services whitelist
-PRODUCT_COPY_FILES += \
-    vendor/lmodroid/config/permissions/backup.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/sysconfig/backup.xml
-
 # lmodroid specific init rc file
 PRODUCT_COPY_FILES += \
     vendor/lmodroid/prebuilt/common/etc/init/init.custom-system.rc:$(TARGET_COPY_OUT_PRODUCT)/etc/init/init.custom-system.rc
