@@ -12,6 +12,20 @@ PRODUCT_PACKAGES += \
     ExactCalculator \
     Exchange2
 
+# Accents
+PRODUCT_PACKAGES += \
+    LMODroidBlackTheme \
+    LMODroidBlackAccent \
+    LMODroidBlueAccent \
+    LMODroidBrownAccent \
+    LMODroidCyanAccent \
+    LMODroidGreenAccent \
+    LMODroidOrangeAccent \
+    LMODroidPinkAccent \
+    LMODroidPurpleAccent \
+    LMODroidRedAccent \
+    LMODroidYellowAccent
+
 # Charger
 PRODUCT_PACKAGES += \
     charger_res_images
