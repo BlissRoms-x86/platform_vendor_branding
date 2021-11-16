@@ -108,6 +108,7 @@ PRODUCT_PACKAGES += \
 
 # Themes
 PRODUCT_PACKAGES += \
+    LMODroidThemesStub \
     ThemePicker
 
 # Config
