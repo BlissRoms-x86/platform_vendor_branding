@@ -25,6 +25,12 @@ repo13="https://mirror.librelabucm.org/fdroid/repo/"
 microg="https://microg.org/fdroid/repo"
 microg_dir="tmp/microg"
 
+unofficial_mozilla="https://rfc2822.gitlab.io/fdroid-firefox/fdroid/repo"
+unofficial_mozilla_dir="tmp/unofficial_mozilla"
+
+bromite="https://fdroid.bromite.org/fdroid/repo"
+bromite_dir="tmp/bromite"
+
 nanolx="https://nanolx.org/fdroid/repo"
 nanolx_dir="tmp/nanolx"
 
@@ -253,7 +259,8 @@ downloadFromRepo() {
 		unzip -po "$repo_dir"/index.jar index.xml > "$repo_dir"/index.xml
 	fi
 	
-		marketvercode="$(xmlstarlet sel -t -m '//application[id="'"$package"'"]' -v ./marketvercode "$repo_dir"/index.xml || true)"
+		#~ marketvercode="$(xmlstarlet sel -t -m '//application[id="'"$package"'"]' -v ./marketvercode "$repo_dir"/index.xml || true)"
+		marketvercode="$(xmlstarlet sel -t -m '//application[id="'"$package"'"]' -v ./nativecode "$repo_dir"/index.xml || true)"
 		apk="$(xmlstarlet sel -t -m '//application[id="'"$package"'"]/package[versioncode="'"$marketvercode"'"]' -v ./apkname "$repo_dir"/index.xml || xmlstarlet sel -t -m '//application[id="'"$package"'"]/package[1]' -v ./apkname "$repo_dir"/index.xml)"
 		downloadStuff "$repo"/"$apk" bin/"$apk"
 
@@ -262,6 +269,18 @@ downloadFromRepo() {
 
 
 echo -e "${YELLOW}# grabbing F-Droid Apps${NC}"
+
+#Web browser
+#~ downloadFromFdroid org.mozilla.fennec_fdroid "Browser2 QuickSearchBox Jelly"
+
+downloadFromRepo "$bromite" "$bromite_dir" org.bromite.bromite "Browser2 QuickSearchBox Jelly"
+downloadFromRepo "$bromite" "$bromite_dir" com.android.webview "WebView"
+
+#~ downloadFromRepo "$unofficial_mozilla" "$unofficial_mozilla_dir" org.mozilla.firefox "Browser2 QuickSearchBox Jelly"
+#icecat 
+#~ downloadFromFdroid org.gnu.icecat "Browser2 QuickSearchBox"
+#Public transportation
+
 # Terminal Emulator
 #~ downloadFromFdroid com.termoneplus
 #Navigation
@@ -303,7 +322,7 @@ downloadFromFdroid org.schabi.newpipe
 
 #  Astian Apps
 # Midori Browser
-downloadFromFdroid org.midorinext.android "Browser2 QuickSearchBox Jelly"
+# downloadFromFdroid org.midorinext.android "Browser2 QuickSearchBox Jelly"
 # Astian Spika
 # downloadFromFdroid org.astianspika.android
 # Astian Cloud
@@ -311,11 +330,6 @@ downloadFromFdroid org.midorinext.android "Browser2 QuickSearchBox Jelly"
 # Astian VPN
 # downloadFromFdroid org.astianvpn.android
 
-#Web browser
-#~ downloadFromFdroid org.mozilla.fennec_fdroid "Browser2 QuickSearchBox"
-#icecat 
-#~ downloadFromFdroid org.gnu.icecat "Browser2 QuickSearchBox"
-#Public transportation
 #~ downloadFromFdroid de.grobox.liberario
 #Ciphered Instant Messaging
 #downloadFromFdroid im.vector.alpha
