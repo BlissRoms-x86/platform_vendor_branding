@@ -98,9 +98,14 @@ PRODUCT_PACKAGES += \
     Updater
 
 # Prebuilt apps
+ifneq ($(TARGET_WITHOUT_PREBUILT_APPS),true)
+
+PRODUCT_BROKEN_VERIFY_USES_LIBRARIES := true
+
 PRODUCT_PACKAGES += \
     KiwiBrowser \
     MusicPlayerGO
+endif
 
 # Themes
 PRODUCT_PACKAGES += \
