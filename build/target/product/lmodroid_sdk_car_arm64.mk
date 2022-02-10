@@ -1,4 +1,4 @@
-# Copyright (C) 2018-2020 The LineageOS Project
+# Copyright (C) 2018-2020 The lmodroidOS Project
 # Copyright (C) 2020 The LibreMobileOS Foundation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,6 +15,8 @@
 
 include vendor/lmodroid/build/target/product/lmodroid_generic_car_target.mk
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/sdk_x86_64.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/sdk_arm64.mk)
 
-PRODUCT_NAME := lmodroid_car_x86_64
+TARGET_NO_KERNEL_OVERRIDE := true
+
+PRODUCT_NAME := lmodroid_sdk_car_arm64
