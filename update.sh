@@ -268,13 +268,15 @@ downloadFromRepo() {
 }
 
 
-echo -e "${YELLOW}# grabbing F-Droid Apps${NC}"
+echo -e "${YELLOW}# grabbing Arora and F-Droid Apps${NC}"
 
 #Web browser
 #~ downloadFromFdroid org.mozilla.fennec_fdroid "Browser2 QuickSearchBox Jelly"
 
+if [ $2 == "bromite" ]; then
 downloadFromRepo "$bromite" "$bromite_dir" org.bromite.bromite "Browser2 QuickSearchBox Jelly"
 downloadFromRepo "$bromite" "$bromite_dir" com.android.webview "WebView"
+fi
 
 #~ downloadFromRepo "$unofficial_mozilla" "$unofficial_mozilla_dir" org.mozilla.firefox "Browser2 QuickSearchBox Jelly"
 #icecat 
@@ -285,8 +287,6 @@ downloadFromRepo "$bromite" "$bromite_dir" com.android.webview "WebView"
 #~ downloadFromFdroid com.termoneplus
 #Navigation
 #~ downloadFromFdroid net.osmand.plus
-#Calendar
-downloadFromFdroid ws.xsoh.etar "Calendar"
 #Pdf viewer
 #~ downloadFromFdroid com.artifex.mupdf.viewer.app
 # Aurora App Store
@@ -297,10 +297,6 @@ downloadFromFdroid com.aurora.store
 downloadFromFdroid com.etesync.syncadapter
 # Todo lists
 #~ downloadFromFdroid org.tasks
-#Fake assistant that research on duckduckgo
-downloadFromFdroid co.pxhouse.sas
-# Gallery App
-downloadFromFdroid com.simplemobiletools.gallery.pro "Photos Gallery Gallery2"
 # Aurora Fdroid
 downloadFromFdroid com.aurora.adroid
 # F-Droid App Store
@@ -309,26 +305,37 @@ downloadFromFdroid com.aurora.adroid
 downloadFromFdroid org.fdroid.fdroid.privileged
 #Phonograph
 #~ downloadFromFdroid com.kabouzeid.gramophone "Eleven"
-#Alarmio
- downloadFromFdroid me.jfenn.alarmio "GoogleClock DeskClock"
 #Mozilla Nlp
 downloadFromFdroid org.microg.nlp.backend.ichnaea
 #Nominatim Nlp
 downloadFromFdroid org.microg.nlp.backend.nominatim
 # EtchDroid USB Writer
 #~ downloadFromFdroid eu.depau.etchdroid
+
+if [ $2 == "extras" ]; then
+#Calendar
+downloadFromFdroid ws.xsoh.etar "Calendar"
+#Fake assistant that research on duckduckgo
+downloadFromFdroid co.pxhouse.sas
+# Gallery App
+downloadFromFdroid com.simplemobiletools.gallery.pro "Photos Gallery Gallery2"
+#Alarmio
+ downloadFromFdroid me.jfenn.alarmio "GoogleClock DeskClock"
 # NewPipe (outdated)
 downloadFromFdroid org.schabi.newpipe
+fi
 
+if [ $2 == "astian" ]; then
 #  Astian Apps
 # Midori Browser
-# downloadFromFdroid org.midorinext.android "Browser2 QuickSearchBox Jelly"
+downloadFromFdroid org.midorinext.android "Browser2 QuickSearchBox Jelly"
 # Astian Spika
 # downloadFromFdroid org.astianspika.android
 # Astian Cloud
 # downloadFromFdroid org.astiancloud.android
 # Astian VPN
 # downloadFromFdroid org.astianvpn.android
+fi
 
 #~ downloadFromFdroid de.grobox.liberario
 #Ciphered Instant Messaging
