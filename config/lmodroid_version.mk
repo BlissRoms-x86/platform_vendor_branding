@@ -29,7 +29,7 @@ ifeq ($(filter RELEASE NIGHTLY WEEKLY EXPERIMENTAL,$(LMODROID_BUILDTYPE)),)
     LMODROID_BUILDTYPE := UNOFFICIAL
 endif
 
-DATE_YEAR := $(shell date -u +%y)
+DATE_YEAR := $(shell date -u +%Y)
 DATE_MONTH := $(shell date -u +%m)
 DATE_DAY := $(shell date -u +%d)
 DATE_HOUR := $(shell date -u +%H)
@@ -47,5 +47,5 @@ LMODROID_BUILD_NAME := $(LMODROID_NAME)-$(LMODROID_VERSION)-$(BUILD_DATE)-$(LMOD
 LMODROID_PROPERTIES := \
     ro.lmodroid.build_name=$(LMODROID_BUILD_NAME) \
     ro.lmodroid.build_date=$(BUILD_DATE) \
-    ro.lmodroid.build_type=$(LMODROID_BUILD_TYPE) \
+    ro.lmodroid.build_type=$(LMODROID_BUILDTYPE) \
     ro.lmodroid.version=$(LMODROID_VERSION)
