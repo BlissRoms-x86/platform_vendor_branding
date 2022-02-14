@@ -1,5 +1,5 @@
-# Copyright (C) 2018-2020 The lmodroidOS Project
-# Copyright (C) 2020 The LibreMobileOS Foundation
+# Copyright (C) 2018-2020 The LineageOS Project
+# Copyright (C) 2020-2022 The LibreMobileOS Foundation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,6 +14,8 @@
 # limitations under the License.
 
 include vendor/lmodroid/build/target/product/lmodroid_generic_car_target.mk
+
+$(call inherit-product, device/generic/car/emulator/aosp_car_emulator.mk)
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/sdk_arm64.mk)
 

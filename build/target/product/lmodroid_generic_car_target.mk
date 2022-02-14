@@ -14,7 +14,6 @@
 # limitations under the License.
 
 $(call inherit-product, vendor/lmodroid/config/common_car.mk)
-$(call inherit-product, device/generic/car/emulator/aosp_car_emulator.mk)
 
 EMULATOR_VENDOR_NO_SENSORS := true
 EMULATOR_VENDOR_NO_SOUND := true
