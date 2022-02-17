@@ -323,6 +323,9 @@ downloadFromFdroid com.simplemobiletools.gallery.pro "Photos Gallery Gallery2"
  downloadFromFdroid me.jfenn.alarmio "GoogleClock DeskClock"
 # NewPipe (outdated)
 downloadFromFdroid org.schabi.newpipe
+
+echo -e "${YELLOW}# grabbing NanoLX Apps${NC}"
+downloadFromRepo "$nanolx" "$nanolx_dir" is.xyz.mpv
 fi
 
 if [ $2 == "astian" ]; then
@@ -352,9 +355,6 @@ downloadFromRepo "$microg" "$microg_dir" com.google.android.gms
 downloadFromRepo "$microg" "$microg_dir" com.google.android.gsf
 downloadFromRepo "$microg" "$microg_dir" com.android.vending "Google Play Store"
 downloadFromRepo "$microg" "$microg_dir" org.microg.gms.droidguard
-
-echo -e "${YELLOW}# grabbing NanoLX Apps${NC}"
-downloadFromRepo "$nanolx" "$nanolx_dir" is.xyz.mpv
 
 #~ echo -e "${YELLOW}# grabbing NewPipe ${NC}"
 #~ downloadFromRepo "$newpipe" "$newpipe_dir" org.schabi.newpip
