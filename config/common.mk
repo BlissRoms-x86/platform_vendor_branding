@@ -52,7 +52,7 @@ endif
 
 # Some permissions
 PRODUCT_COPY_FILES += \
-    vendor/lmodroid/config/permissions/privapp-permissions-lineagehw.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-lineagehw.xml
+    vendor/lmodroid/config/permissions/privapp-permissions-lmodroid.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-lmodroid.xml
 
 # lmodroid specific init rc file
 PRODUCT_COPY_FILES += \
