@@ -118,6 +118,12 @@ PRODUCT_PACKAGES += \
     MusicPlayerGO
 endif
 
+# System apps
+PRODUCT_PACKAGES += \
+    Etar \
+    ExactCalculator \
+    Recorder
+
 # Themes
 PRODUCT_PACKAGES += \
     LMODroidThemesStub \
