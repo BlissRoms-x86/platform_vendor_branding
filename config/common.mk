@@ -118,6 +118,10 @@ PRODUCT_PACKAGES += \
     MusicPlayerGO
 endif
 
+# SetupWizard
+PRODUCT_PACKAGES += \
+    LMOSetupWizard
+
 # System apps
 PRODUCT_PACKAGES += \
     Etar \
