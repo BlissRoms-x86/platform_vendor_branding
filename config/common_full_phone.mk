@@ -3,7 +3,8 @@ $(call inherit-product, vendor/lmodroid/config/common_full.mk)
 
 # Required packages
 PRODUCT_PACKAGES += \
-    LatinIME
+    LatinIME \
+    NavigationBarMode2ButtonOverlay
 
 # Include LMODroid LatinIME dictionaries
 PRODUCT_PACKAGE_OVERLAYS += vendor/lmodroid/overlay/dictionaries
