@@ -19,7 +19,7 @@ include vendor/lmodroid/build/target/product/lmodroid_generic_tv_target.mk
 
 TARGET_USES_64_BIT_BINDER := true
 
-PRODUCT_NAME := lmodroid_tv_x86
+PRODUCT_NAME := lmodroid_gsi_tv_x86
 
 PRODUCT_ENFORCE_ARTIFACT_PATH_REQUIREMENTS :=
 
