@@ -81,9 +81,6 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 # Include AOSP audio files
 include vendor/lmodroid/config/aosp_audio.mk
 
-# Include LMODroid audio files
-include vendor/lmodroid/config/lmodroid_audio.mk
-
 # Do not include art debug targets
 PRODUCT_ART_TARGET_INCLUDE_DEBUG_BUILD := false
 
