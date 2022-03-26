@@ -696,7 +696,7 @@ function lmorebase() {
 }
 
 function mka() {
-    m
+    m "$@"
 }
 
 function cmka() {
