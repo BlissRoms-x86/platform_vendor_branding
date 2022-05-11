@@ -32,7 +32,14 @@ PRODUCT_PACKAGES += \
 
 # Customizations
 PRODUCT_PACKAGES += \
-    NavigationBarNoHintOverlay
+    NavigationBarNoHintOverlay \
+    IconShapePebbleOverlay \
+    IconShapeRoundedRectOverlay \
+    IconShapeSquareOverlay \
+    IconShapeSquircleOverlay \
+    IconShapeTaperedRectOverlay \
+    IconShapeTeardropOverlay \
+    IconShapeVesselOverlay
 
 # Media
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
