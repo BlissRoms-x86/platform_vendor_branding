@@ -29,7 +29,11 @@ PRODUCT_PACKAGES += \
 # Charger
 PRODUCT_PACKAGES += \
     charger_res_images
-    
+
+# Customizations
+PRODUCT_PACKAGES += \
+    NavigationBarNoHintOverlay
+
 # Media
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     media.recorder.show_manufacturer_and_model=true
