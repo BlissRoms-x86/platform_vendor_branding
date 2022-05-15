@@ -125,6 +125,7 @@ PRODUCT_PACKAGES += \
 
 # Themes
 PRODUCT_PACKAGES += \
+    LMODroidBlackTheme \
     LMODroidThemesStub \
     ThemePicker
 
