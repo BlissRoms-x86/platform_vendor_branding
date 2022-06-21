@@ -123,7 +123,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Etar \
     ExactCalculator \
-    Recorder
+    Recorder \
+    LMOCamera
 
 # Themes
 PRODUCT_PACKAGES += \
