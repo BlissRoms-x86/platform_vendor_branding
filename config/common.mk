@@ -123,8 +123,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Etar \
     ExactCalculator \
+    LMOCamera \
     Recorder \
-    LMOCamera
+    Seedvault
 
 # Themes
 PRODUCT_PACKAGES += \
