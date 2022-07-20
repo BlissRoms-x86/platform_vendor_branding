@@ -107,7 +107,7 @@ ifneq ($(TARGET_WITHOUT_PREBUILT_APPS),true)
 PRODUCT_BROKEN_VERIFY_USES_LIBRARIES := true
 
 PRODUCT_PACKAGES += \
-    KiwiBrowser \
+    Jellyfish \
     MusicPlayerGO
 endif
 
