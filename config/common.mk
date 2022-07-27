@@ -121,7 +121,8 @@ PRODUCT_PACKAGES += \
     ExactCalculator \
     LMOCamera \
     Recorder \
-    Seedvault
+    Seedvault \
+    VLC
 
 # Themes
 PRODUCT_PACKAGES += \
