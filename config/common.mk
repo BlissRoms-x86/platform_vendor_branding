@@ -119,6 +119,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Etar \
     ExactCalculator \
+    GameSpace \
     LMOCamera \
     Recorder \
     Seedvault \
