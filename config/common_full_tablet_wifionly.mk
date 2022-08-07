@@ -5,3 +5,7 @@ $(call inherit-product, vendor/lmodroid/config/common_full.mk)
 PRODUCT_PACKAGES += \
     androidx.window.extensions \
     LatinIME
+
+# Include Lineage LatinIME dictionaries
+PRODUCT_PACKAGE_OVERLAYS += vendor/lmodroid/overlay/dictionaries
+PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += vendor/lmodroid/overlay/dictionaries

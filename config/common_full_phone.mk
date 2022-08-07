@@ -5,8 +5,9 @@ $(call inherit-product, vendor/lmodroid/config/common_full.mk)
 PRODUCT_PACKAGES += \
     LatinIME
 
-# Include LMODroid LatinIME dictionaries
+# Include Lineage LatinIME dictionaries
 PRODUCT_PACKAGE_OVERLAYS += vendor/lmodroid/overlay/dictionaries
+PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += vendor/lmodroid/overlay/dictionaries
 
 # Enable support of one-handed mode
 PRODUCT_PRODUCT_PROPERTIES += \
