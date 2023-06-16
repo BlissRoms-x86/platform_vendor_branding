@@ -32,7 +32,6 @@ function lunch
         return
     fi
 
-    check_patchsets
     copy_wallpaper
     aosp_lunch $*
 
