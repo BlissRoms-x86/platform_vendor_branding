@@ -42,11 +42,32 @@ Place target prebuilt apk files in the following folders:
 
 #### Step 3:
 
-Run the `update.sh` script to start generate the makefiles and permissions.xml automatically
+Run the `update.sh` script from inside this project folder to start generate the 
+makefiles and permissions.xml automatically
 
 Example:
 
 	$ bash update.sh 1
+
+#### Step 4:
+
+From here we can cd back to our project directory and run:
+
+	$ . build/envsetup.sh
+
+#### Step 5:
+
+Then we can then run `check_patchsets` to apply all the required changes for the project
+(On some updates, there is a chance of patchsets not applying cleanly. Some work will be 
+needed to resolve patch conflicts before continuing to the next step)
+
+#### Step 6: 
+
+After patches apply successfully, you can use the following command to start a clean build:
+
+	$ build-x86
+
+When compile is complete, you can then find your .iso file in the iso/ folder 
 
 ## Overlays included:
 
