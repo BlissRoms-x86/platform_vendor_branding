@@ -57,8 +57,19 @@ From here we can cd back to our project directory and run:
 
 #### Step 5:
 
-Then we can then run `check_patchsets` to apply all the required changes for the project
-(On some updates, there is a chance of patchsets not applying cleanly. Some work will be 
+Then we need to update the base with our changes for the project. To do that, we first 
+need to know if we are using Bliss-Bass or Bliss-Bass Go. 
+
+*Bliss Bass:*
+
+	$ check_patchsets
+	
+*Bliss Bass Go:*
+
+	$  check_patchsets go
+	
+This will apply all the required changes for the project variant
+(On new base updates, there is a chance of patchsets not applying cleanly. Some work will be 
 needed to resolve patch conflicts before continuing to the next step)
 
 #### Step 6: 

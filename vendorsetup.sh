@@ -59,6 +59,7 @@ function copy_wallpaper()
 
 function check_patchsets() 
 {
+    patchset_type=$1
     local T=$(gettop)
     if [ ! "$T" ]; then
         echo "[lunch] Couldn't locate the top of the tree.  Try setting TOP." >&2
@@ -69,7 +70,11 @@ function check_patchsets()
         return
     else
         echo "[lunch] Patchsets found"
-        bash vendor/$vendor_name/patches/autopatch.sh vendor/$vendor_name/patches/patchsets
+        if [ "$patchset_type" = "go" ]; then
+            bash vendor/$vendor_name/patches/autopatch.sh vendor/$vendor_name/patches/patchsets-go
+        else
+            bash vendor/$vendor_name/patches/autopatch.sh vendor/$vendor_name/patches/patchsets
+        fi
     fi
 }
 
