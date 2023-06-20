@@ -1,14 +1,13 @@
-# vendor_foss
-A set of FOSS applications to include in an AOSP
+# vendor branding profile
+This repo includes the branding and app changes for vendor customization
 
-*with added options and features*
+Some preparation is needed to include apps into the builds. 
 
 ## Features:
 
- - Supports F-Droid Mirrors - So if main repo fails, it will try the 
-   rest of the mirrors from the F-Droid mirror list
+ - Supports adding user apps or private apps to be included in the build
  - Supports both arm64-v8a, x86 & x86_64 ABIs through the use of Options
- - Generates foss-permissions.xml for including into AOSP based builds
+ - Generates a permissions.xml for including into AOSP based builds
  
 ##### Options Usage:
 	 
@@ -20,46 +19,41 @@ A set of FOSS applications to include in an AOSP
 	- 2 = arm64-v8a ABI
 	- 3 = x86 ABI
 
-##### AOSP Build Instructions:
+## AOSP Build Instructions:
 
-To include the FOSS apps into your device specific builds. Please clone 
-this repo into vendor/foss:
+To include the branding changes into your device specific builds. Please clone 
+this repo into vendor/branding:
 
-	$ git clone https://github.com/BlissRoms-x86/vendor_foss vendor/foss
+	$ git clone https://github.com/vendsy/vendor_branding vendor/branding
+
+#### Step 1:
 	
-Then add this inherit to your device tree:
+Add this inherit to your device tree:
 
-	# foss apps
-	$(call inherit-product-if-exists, vendor/foss/foss.mk)
+	# vendor/branding
+	$(call inherit-product-if-exists, vendor/branding/branding.mk)
 
-## Included Apps:
+#### Step 2:
 
-#### From F-Droid Repo:
+Place target prebuilt apk files in the following folders:
 
-- Calendar - ws.xsoh.etar
-- Aurora App Store - com.aurora.store
-- Aurora Fdroid - com.aurora.adroid
-- Calendar/Contacts sync - com.etesync.syncadapter
-- Fake assistant that uses duckduckgo - co.pxhouse.sas
-- Gallery App - com.simplemobiletools.gallery.pro
-- fdroid extension - org.fdroid.fdroid.privileged
-- Alarmio - me.jfenn.alarmio
-- Mozilla Nlp - org.microg.nlp.backend.ichnaea
-- Nominatim Nlp - org.microg.nlp.backend.nominatim
-- NewPipe - org.schabi.newpipe
-- Midori Browser - org.midorinext.android
+ - prebuilts/priv-apps/ - Any apps found in here will be added as a privelaged app
+ - prebuilts/apps - Any apps found in here will be added as a normal user app
 
-#### From MicroG Repo:
+#### Step 3:
 
-- MicroG GMS - com.google.android.gms
-- MicroG GSF - com.google.android.gsf
-- MicroG FakeStore - com.android.vending
-- MicroG DroidGuard - org.microg.gms.droidguard 
- 
-#### From NanoLX Repo:
- 
-- MVP Video Player - is.xyz.mpv
+Run the `update.sh` script to start generate the makefiles and permissions.xml automatically
 
-### Notes
+Example:
 
-- For microG, this [commit](https://github.com/microg/android_packages_apps_GmsCore/pull/957) is needed
+	$ bash update.sh 1
+
+## Overlays included:
+
+We include a few of the overlays specific to branding in this project. 
+
+ - Wallpapers
+ - Bootanimation [WIP]
+ - Advanced power-menu overrides
+ - virtual keyboard overrides
+ - etc.

@@ -23,9 +23,11 @@ echo ""
 #~ echo ""
 for i in $perms_list ; do
 if [ "$i" == "uses-permission:" ]; then
-	echo -e "skipping meaningless line"
+	# echo -e "skipping meaningless line"
+  continue
 elif [[ "$i" == *"package:"* ]]; then
-	echo -e "skipping meaningless line"
+	# echo -e "skipping meaningless line"
+  continue
 elif [[ "$i" == *"name="* ]]; then
 temp_str=$(echo "$i" | sed -e "s/'/\"/g")
 cat >> $PARSED_PERMS_PATH <<EOF
