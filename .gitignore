@@ -1,2 +1,10 @@
 proprietary/*
-prebuilt/archive
+prebuilts/archive
+apps.mk
+bin/
+./Android.mk
+lib/
+wget-log*
+permissions/
+tmp/*
+
