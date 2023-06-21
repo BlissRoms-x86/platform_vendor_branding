@@ -70,8 +70,12 @@ function check_patchsets()
         return
     else
         echo "[lunch] Patchsets found"
-        if [ "$patchset_type" = "go" ]; then
-            bash vendor/$vendor_name/patches/autopatch.sh vendor/$vendor_name/patches/patchsets-go
+        if [ "$patchset_type" != "" ]; then
+            if [ -d vendor/$vendor_name/patches/patchsets-$patchset_type ]; then
+                bash vendor/$vendor_name/patches/autopatch.sh vendor/$vendor_name/patches/patchsets-$patchset_type
+            else
+                echo "No patchsets found for $patchset_type"
+            fi
         else
             bash vendor/$vendor_name/patches/autopatch.sh vendor/$vendor_name/patches/patchsets
         fi
