@@ -14,17 +14,14 @@
 
 # save the official lunch command to aosp_lunch() and source it
 tmp_lunch=`mktemp`
+
+# !!! Update this to your own path !!!
+vendor_name="BlissBass"
+
+# source the official lunch command
 sed '/ lunch()/,/^}/!d'  build/envsetup.sh | sed 's/function lunch/function aosp_lunch/' > ${tmp_lunch}
 source ${tmp_lunch}
 rm -f ${tmp_lunch}
-
-function  apply_patch
-{
-
-local patch_folder=$1
-echo "patch folder: $patch_folder"
-
-}
 
 # Override lunch function to filter lunch targets
 function lunch
@@ -35,29 +32,45 @@ function lunch
         return
     fi
 
-    aosp_lunch $*
-
+    check_patchsets
     copy_wallpaper
+    aosp_lunch $*
 
 }
 
 # Copy wallpaper
-# copy and replace any image found in vendor/branding/branding/wallpaper to 
-# vendor/branding/overlay/common/frameworks/base/core/res/res/drawable-*
+# copy and replace any image found in vendor/$vendor_name/branding/wallpaper to 
+# vendor/$vendor_name/overlay/common/frameworks/base/core/res/res/drawable-*
 function copy_wallpaper()
 {
-    if [ -f vendor/branding/branding/wallpaper/* ]; then
+    if [ -f vendor/$vendor_name/branding/wallpaper/* ]; then
         echo -e "Wallpaper branding found. Updating that now..."
         echo ""
-        cp -r vendor/branding/branding/wallpaper/* vendor/branding/overlay/common/frameworks/base/core/res/res/drawable-hdpi/
-        cp -r vendor/branding/branding/wallpaper/* vendor/branding/overlay/common/frameworks/base/core/res/res/drawable-mdpi/
-        cp -r vendor/branding/branding/wallpaper/* vendor/branding/overlay/common/frameworks/base/core/res/res/drawable-nodpi/
-        cp -r vendor/branding/branding/wallpaper/* vendor/branding/overlay/common/frameworks/base/core/res/res/drawable-xhdpi/
-        cp -r vendor/branding/branding/wallpaper/* vendor/branding/overlay/common/frameworks/base/core/res/res/drawable-xxhdpi/
-        cp -r vendor/branding/branding/wallpaper/* vendor/branding/overlay/common/frameworks/base/core/res/res/drawable-xxxhdpi/
-        cp -r vendor/branding/branding/wallpaper/* vendor/branding/overlay/common/frameworks/base/core/res/res/drawable-sw600dp-nodpi/
-        cp -r vendor/branding/branding/wallpaper/* vendor/branding/overlay/common/frameworks/base/core/res/res/drawable-sw720dp-nodpi/
+        cp -r vendor/$vendor_name/branding/wallpaper/* vendor/$vendor_name/overlay/common/frameworks/base/core/res/res/drawable-hdpi/
+        cp -r vendor/$vendor_name/branding/wallpaper/* vendor/$vendor_name/overlay/common/frameworks/base/core/res/res/drawable-mdpi/
+        cp -r vendor/$vendor_name/branding/wallpaper/* vendor/$vendor_name/overlay/common/frameworks/base/core/res/res/drawable-nodpi/
+        cp -r vendor/$vendor_name/branding/wallpaper/* vendor/$vendor_name/overlay/common/frameworks/base/core/res/res/drawable-xhdpi/
+        cp -r vendor/$vendor_name/branding/wallpaper/* vendor/$vendor_name/overlay/common/frameworks/base/core/res/res/drawable-xxhdpi/
+        cp -r vendor/$vendor_name/branding/wallpaper/* vendor/$vendor_name/overlay/common/frameworks/base/core/res/res/drawable-xxxhdpi/
+        cp -r vendor/$vendor_name/branding/wallpaper/* vendor/$vendor_name/overlay/common/frameworks/base/core/res/res/drawable-sw600dp-nodpi/
+        cp -r vendor/$vendor_name/branding/wallpaper/* vendor/$vendor_name/overlay/common/frameworks/base/core/res/res/drawable-sw720dp-nodpi/
         echo -e "Wallpaper branding updated"
+    fi
+}
+
+function check_patchsets() 
+{
+    local T=$(gettop)
+    if [ ! "$T" ]; then
+        echo "[lunch] Couldn't locate the top of the tree.  Try setting TOP." >&2
+        return
+    fi
+    if [ ! -d vendor/$vendor_name/patches/patchsets/* ]; then
+        echo "[lunch] No patchsets found"
+        return
+    else
+        echo "[lunch] Patchsets found"
+        bash vendor/$vendor_name/patches/autopatch.sh vendor/$vendor_name/patches/patchsets
     fi
 }
 
@@ -96,5 +109,5 @@ function get_build_var()
 
 function build-x86()
 {
-	bash vendor/branding/tools/build-x86.sh
+	bash vendor/$vendor_name/tools/build-x86.sh
 }
