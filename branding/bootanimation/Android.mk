@@ -21,7 +21,7 @@ $(TARGET_GENERATED_BOOTANIMATION): $(SOONG_ZIP)
 	@echo "Building bootanimation.zip"
 	@rm -rf $(dir $@)
 	@mkdir -p $(dir $@)
-	$(hide) tar xfp vendor/lmodroid/bootanimation/bootanimation.tar -C $(INTERMEDIATES)
+	$(hide) tar xfp vendor/branding/branding/bootanimation/bootanimation.tar -C $(INTERMEDIATES)
 	$(hide) if [ $(TARGET_SCREEN_HEIGHT) -lt $(TARGET_SCREEN_WIDTH) ]; then \
 	    IMAGEWIDTH=$(TARGET_SCREEN_HEIGHT); \
 	else \
@@ -33,12 +33,12 @@ $(TARGET_GENERATED_BOOTANIMATION): $(SOONG_ZIP)
 	    IMAGEWIDTH="$$(expr "$$IMAGESCALEWIDTH" / 2)"; \
 	fi; \
 	RESOLUTION="$$IMAGEWIDTH"x"$$IMAGEWIDTH"; \
-	for part_cnt in 0 1 2 3 4; do \
+	for part_cnt in 0; do \
 	    mkdir -p $(INTERMEDIATES)/part$$part_cnt; \
 	done; \
-	prebuilts/tools-lmodroid/${HOST_OS}-x86/bin/mogrify -resize $$RESOLUTION -colors 250 $(INTERMEDIATES)/*/*.png; \
+	prebuilts/tools-bass/${HOST_OS}-x86/bin/mogrify -resize $$RESOLUTION -colors 250 $(INTERMEDIATES)/*/*.png; \
 	echo "$$IMAGESCALEWIDTH $$IMAGESCALEWIDTH 60" > $(INTERMEDIATES)/desc.txt; \
-	cat vendor/lmodroid/bootanimation/desc.txt >> $(INTERMEDIATES)/desc.txt
+	cat vendor/branding/branding/bootanimation/desc.txt >> $(INTERMEDIATES)/desc.txt
 	$(hide) $(SOONG_ZIP) -L 0 -o $(TARGET_GENERATED_BOOTANIMATION) -C $(INTERMEDIATES) -D $(INTERMEDIATES)
 
 ifeq ($(TARGET_BOOTANIMATION),)

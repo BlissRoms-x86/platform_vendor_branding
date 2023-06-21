@@ -7,8 +7,8 @@ DEVICE_PACKAGE_OVERLAYS += vendor/branding/overlay/common
 PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += vendor/branding/overlay/common
 
 # Bootanimation
-TARGET_SCREEN_WIDTH ?= 1024		
-TARGET_SCREEN_HEIGHT ?= 768
+TARGET_SCREEN_WIDTH ?= 800		
+TARGET_SCREEN_HEIGHT ?= 800
 PRODUCT_PACKAGES += \
     bootanimation.zip
 
