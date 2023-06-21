@@ -1,0 +1,26 @@
+From 007dfbad3cca3d5f856f754a3c6769564bdbc340 Mon Sep 17 00:00:00 2001
+From: Jon West <electrikjesus@gmail.com>
+Date: Tue, 6 Jun 2023 21:02:38 -0400
+Subject: [PATCH 01/10] [init] Disable SetupWizard by default
+
+Allowing us to use ENABLE_GMS=1 to enable it
+---
+ init.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/init.sh b/init.sh
+index b48c6c1..3af0cba 100644
+--- a/init.sh
++++ b/init.sh
+@@ -1013,7 +1013,7 @@ for c in `cat /proc/cmdline`; do
+ 						dumpsys battery set ac "$SET_FAKE_CHARGING_STATUS"
+ 						;;
+ 				esac
+-				[ "$SETUPWIZARD" = "0" ] && set_property ro.setupwizard.mode DISABLED
++				[ "$SETUPWIZARD" = "0" -o "$ENABLE_GMS" != "1" ] && set_property ro.setupwizard.mode DISABLED
+ 			fi
+ 			;;
+ 	esac
+-- 
+2.34.1
+

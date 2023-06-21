@@ -1,0 +1,25 @@
+From 1632eb400b6bd0b43866e6fa6c35ad1409ebc501 Mon Sep 17 00:00:00 2001
+From: Jon West <electrikjesus@gmail.com>
+Date: Thu, 8 Jun 2023 19:29:16 -0400
+Subject: [PATCH 05/10] [overlay] Disable freeform windows by default
+
+---
+ overlay/frameworks/base/core/res/res/values/config.xml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/overlay/frameworks/base/core/res/res/values/config.xml b/overlay/frameworks/base/core/res/res/values/config.xml
+index 4afa01d..eefd2d9 100644
+--- a/overlay/frameworks/base/core/res/res/values/config.xml
++++ b/overlay/frameworks/base/core/res/res/values/config.xml
+@@ -114,7 +114,7 @@
+          PackageManager.FEATURE_FREEFORM_WINDOW_MANAGEMENT feature to your device specification.
+          The duplication is necessary, because this information is used before the features are
+          available to the system.-->
+-    <bool name="config_freeformWindowManagement">true</bool>
++    <bool name="config_freeformWindowManagement">false</bool>
+ 
+     <!-- Controls the opacity of the navigation bar depending on the visibility of the
+          various workspace stacks.
+-- 
+2.34.1
+

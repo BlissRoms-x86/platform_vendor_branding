@@ -1,0 +1,26 @@
+From 3a604dc5d144c83ed1a2fd67bc8c7bbf21133f82 Mon Sep 17 00:00:00 2001
+From: Jon West <electrikjesus@gmail.com>
+Date: Mon, 12 Jun 2023 15:45:59 -0400
+Subject: [PATCH 02/10] [packages] Add back QuickSearchBox packages
+
+---
+ packages.mk | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/packages.mk b/packages.mk
+index f499109..0d60eb6 100644
+--- a/packages.mk
++++ b/packages.mk
+@@ -147,3 +147,8 @@ PRODUCT_PACKAGES += \
+ 	pc.xml \
+ 	hpe.xml \
+ 	device.prop
++
++PRODUCT_PACKAGES += \
++    QuickSearchBox \
++    GoogleQuickSearchBox
++    
+\ No newline at end of file
+-- 
+2.34.1
+

@@ -1,0 +1,37 @@
+From 64bef378feda11666f507beaea0a7e4d6fe17ac8 Mon Sep 17 00:00:00 2001
+From: Jon West <electrikjesus@gmail.com>
+Date: Fri, 16 Jun 2023 11:02:33 -0400
+Subject: [PATCH 13/15] [grub] Move install to the top
+
+---
+ install/grub2/efi/boot/android.cfg | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/install/grub2/efi/boot/android.cfg b/install/grub2/efi/boot/android.cfg
+index 8b0c761f..6e5ad6b1 100644
+--- a/install/grub2/efi/boot/android.cfg
++++ b/install/grub2/efi/boot/android.cfg
+@@ -83,6 +83,9 @@ search --no-floppy --set android -f $kdir/kernel
+ export android bootefi grub kdir live src
+ 
+ # Create main menu
++if [ -s ($android)$kdir/install.img ]; then
++	add_entry "Installation" INSTALL=1
++fi
+ add_entry "$live" quiet
+ add_entry "$live (Default) w/ FFMPEG" quiet FFMPEG_CODEC=1 FFMPEG_PREFER_C2=1
+ add_entry "$live (Intel) w/ FFMPEG" quiet HWC=drm_minigbm_celadon GRALLOC=minigbm FFMPEG_CODEC=1 FFMPEG_PREFER_C2=1
+@@ -91,10 +94,6 @@ add_entry "$live PC-Mode (Default) w/ FFMPEG" quiet PC_MODE=1 FFMPEG_CODEC=1 FFM
+ add_entry "$live PC-Mode (Intel)" quiet PC_MODE=1 HWC=drm_minigbm_celadon GRALLOC=minigbm
+ add_entry "$live PC-Mode (Intel) w/ FFMPEG" quiet PC_MODE=1 HWC=drm_minigbm_celadon GRALLOC=minigbm FFMPEG_CODEC=1 FFMPEG_PREFER_C2=1
+ 
+-if [ -s ($android)$kdir/install.img ]; then
+-	add_entry "Installation" INSTALL=1
+-fi
+-
+ submenu "VM Options -> " --class forward {
+ 	add_entry "$live - QEMU/KVM - Virgl - SW-FFMPEG" quiet HWC=drm_minigbm GRALLOC=minigbm_arcvm
+ 	add_entry "$live - Vbox/VMWare - No HW Acceleration" quiet nomodeset HWACCEL=0
+-- 
+2.34.1
+

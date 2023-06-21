@@ -1,0 +1,24 @@
+From 7a2a79be742452a57a8009d447e9585c26e182b9 Mon Sep 17 00:00:00 2001
+From: Jon West <electrikjesus@gmail.com>
+Date: Thu, 15 Jun 2023 12:55:12 -0400
+Subject: [PATCH 4/4] Add overlay to show hard heyboard
+
+---
+ .../base/packages/SettingsProvider/res/values/defaults.xml     | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/overlay/common/frameworks/base/packages/SettingsProvider/res/values/defaults.xml b/overlay/common/frameworks/base/packages/SettingsProvider/res/values/defaults.xml
+index 796e691..8797fea 100644
+--- a/overlay/common/frameworks/base/packages/SettingsProvider/res/values/defaults.xml
++++ b/overlay/common/frameworks/base/packages/SettingsProvider/res/values/defaults.xml
+@@ -23,4 +23,7 @@
+     <bool name="def_one_handed_mode_enabled">true</bool>
+ 
+     <string name="def_backup_transport">com.google.android.gms/.backup.BackupTransportService</string>
++    <!-- Allow users to use both the on-screen keyboard, as well as a real
++         keyboard -->
++    <bool name="def_show_ime_with_hard_keyboard">true</bool>
+ </resources>
+-- 
+2.34.1
+

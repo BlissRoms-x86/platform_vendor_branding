@@ -1,0 +1,25 @@
+From 9be32100dd23177800945903d915473c4f126bcf Mon Sep 17 00:00:00 2001
+From: Jon West <electrikjesus@gmail.com>
+Date: Sat, 1 Apr 2023 16:05:07 -0400
+Subject: [PATCH 06/15] [installer] try_upgrade: add some feedback
+
+---
+ install/scripts/1-install | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/install/scripts/1-install b/install/scripts/1-install
+index 6fdadf48..742aec8a 100644
+--- a/install/scripts/1-install
++++ b/install/scripts/1-install
+@@ -342,7 +342,7 @@ create_data_img()
+ 
+ try_upgrade()
+ {
+-	[ -d $1 ] && return
++	[ -d $1 ] && dialog --title "No install found to upgrade at: $1" --nocancel --pause "" 8 41 1 && return
+ 
+ 	for d in hd/*; do
+ 		[ -n "`ls "$d"/system* 2> /dev/null`" ] && echo \"`basename $d`\" \"\"
+-- 
+2.34.1
+

@@ -1,0 +1,24 @@
+From b014f85eb531714b1db16b5e5a02aaa1b939a4e3 Mon Sep 17 00:00:00 2001
+From: Jon West <electrikjesus@gmail.com>
+Date: Mon, 12 Jun 2023 14:29:31 -0400
+Subject: [PATCH 08/10] [overlay] Add overlay to disable advanced power menu by
+ default
+
+---
+ .../base/packages/SettingsProvider/res/values/defaults.xml      | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/overlay/frameworks/base/packages/SettingsProvider/res/values/defaults.xml b/overlay/frameworks/base/packages/SettingsProvider/res/values/defaults.xml
+index 5293f85..2b04f16 100644
+--- a/overlay/frameworks/base/packages/SettingsProvider/res/values/defaults.xml
++++ b/overlay/frameworks/base/packages/SettingsProvider/res/values/defaults.xml
+@@ -25,4 +25,6 @@
+     <!-- Allow users to use both the on-screen keyboard, as well as a real
+          keyboard -->
+     <bool name="def_show_ime_with_hard_keyboard">true</bool>
++    <!-- default setting for Settings.System.POWERMENU_ADVANCED -->
++    <bool name="def_powermenu_advanced">false</bool>
+ </resources>
+-- 
+2.34.1
+

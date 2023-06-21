@@ -1,0 +1,23 @@
+From 9f6d196c106372501e37628a1ef4954f930a8ff8 Mon Sep 17 00:00:00 2001
+From: Jon West <electrikjesus@gmail.com>
+Date: Thu, 8 Jun 2023 19:30:48 -0400
+Subject: [PATCH 3/4] Set 3-button nav as default
+
+---
+ overlay/common/frameworks/base/core/res/res/values/config.xml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/overlay/common/frameworks/base/core/res/res/values/config.xml b/overlay/common/frameworks/base/core/res/res/values/config.xml
+index ec5d262..92fd255 100644
+--- a/overlay/common/frameworks/base/core/res/res/values/config.xml
++++ b/overlay/common/frameworks/base/core/res/res/values/config.xml
+@@ -188,5 +188,5 @@
+          0: 3 button mode (back, home, overview buttons)
+          1: 2 button mode (back, home buttons + swipe up for overview)
+          2: gestures only for back, home and overview -->
+-    <integer name="config_navBarInteractionMode">2</integer>
++    <integer name="config_navBarInteractionMode">0</integer>
+ </resources>
+-- 
+2.34.1
+

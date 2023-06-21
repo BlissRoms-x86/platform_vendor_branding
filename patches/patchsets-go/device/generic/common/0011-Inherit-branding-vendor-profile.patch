@@ -1,0 +1,26 @@
+From 7ae2028ae06b896af83faba506750d596509627e Mon Sep 17 00:00:00 2001
+From: Jon West <electrikjesus@gmail.com>
+Date: Fri, 16 Jun 2023 11:28:11 -0400
+Subject: [PATCH 2/2] Inherit branding vendor profile
+
+---
+ device.mk | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/device.mk b/device.mk
+index ef4bccc..a66f83d 100644
+--- a/device.mk
++++ b/device.mk
+@@ -258,6 +258,9 @@ $(call inherit-product-if-exists, vendor/google/proprietary/SettingsIntelligence
+ # Boringdroid
+ $(call inherit-product-if-exists, vendor/boringdroid/boringdroid.mk)
+ 
++# vendor customization layer
++$(call inherit-product-if-exists, vendor/branding/branding.mk)
++
+ # Enable MultiWindow
+ PRODUCT_PROPERTY_OVERRIDES += \
+     persist.sys.debug.multi_window=true
+-- 
+2.34.1
+

@@ -1,0 +1,25 @@
+From 7a4c94bfebab089b20e19c60b22ef53375f3d028 Mon Sep 17 00:00:00 2001
+From: Jon West <electrikjesus@gmail.com>
+Date: Mon, 17 Apr 2023 11:35:01 -0400
+Subject: [PATCH 08/15] Update Changelog filename for Bliss variants
+
+---
+ Android.mk | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Android.mk b/Android.mk
+index e438a267..a312e089 100644
+--- a/Android.mk
++++ b/Android.mk
+@@ -226,7 +226,7 @@ ISOHYBRID := LD_LIBRARY_PATH=$(LOCAL_PATH)/install/lib external/syslinux/bios/ut
+ $(ISO_IMAGE): $(boot_dir) $(BUILT_IMG)
+ 	# Generate Changelog
+ 	bash bootable/newinstaller/tools/changelog
+-	$(hide) mv Changelog.txt $(PRODUCT_OUT)/Changelog-$(BLISS_VERSION).txt
++	$(hide) mv Changelog.txt $(PRODUCT_OUT)/Changelog-$(BLISS_BUILD_ZIP).txt
+ 	@echo ----- Making iso image ------
+ 	$(hide) sed -i "s|\(Installation CD\)\(.*\)|\1 $(VER)|; s|CMDLINE|$(BOARD_KERNEL_CMDLINE)|" $</isolinux/isolinux.cfg
+ 	$(hide) sed -i "s|VER|$(VER)|; s|CMDLINE|$(BOARD_KERNEL_CMDLINE)|" $</efi/boot/android.cfg
+-- 
+2.34.1
+

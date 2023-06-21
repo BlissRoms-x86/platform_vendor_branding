@@ -1,0 +1,93 @@
+From de489d511a96e97ea5eed686f1e42576e59759be Mon Sep 17 00:00:00 2001
+From: Jon West <electrikjesus@gmail.com>
+Date: Mon, 22 May 2023 13:12:40 -0400
+Subject: [PATCH 09/10] [init] Add set_usb_mode function
+
+This function handles 2 evnets initially:
+- FORCE_USE_ADB_CLIENT_MODE: Forces client mode adb settings
+- FORCE_USE_ADB_MASS_STORAGE - Forces USB mass_storage mode
+---
+ init.sh | 58 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 57 insertions(+), 1 deletion(-)
+
+diff --git a/init.sh b/init.sh
+index 3af0cba..ee43779 100644
+--- a/init.sh
++++ b/init.sh
+@@ -831,10 +831,66 @@ function set_lowmem()
+ 	done
+ }
+ 
++function set_usb_mode()
++{
++	# Set up usb/adb props when values are detected in /proc/cmdline
++	
++	for c in `cat /proc/cmdline`; do
++		case $c in
++			*=*)
++				eval $c
++				if [ -z "$1" ]; then
++					case $c in
++						FORCE_USE_ADB_CLIENT_MODE=1)
++							set_property persist.usb.debug 1
++							set_property persist.adb.notify 0
++							set_property persist.sys.usb.config "mtp,adb"
++							set_property ro.secure 0
++							set_property ro.adb.secure 0
++							set_property ro.debuggable 1
++							set_property service.adb.root 1
++							set_property persist.sys.root_access 1
++							set_property persist.service.adb.enable 1
++							set_property service.adb.tcp.port 5555
++							;;
++						FORCE_USE_ADB_CLIENT_MODE=0)
++							set_property persist.usb.debug 0
++							set_property persist.adb.notify 1
++							set_property persist.sys.usb.config "mtp"
++							set_property ro.secure 1
++							set_property ro.adb.secure 1
++							set_property ro.debuggable 0
++							set_property service.adb.root 0
++							set_property persist.sys.root_access 0
++							set_property persist.service.adb.enable 0
++							set_property service.adb.tcp.port 5555
++							;;
++						FORCE_USE_ADB_MASS_STORAGE=*)
++							usb_config=$(getprop persist.sys.usb.config)
++							if [ "$FORCE_USE_ADB_MASS_STORAGE" == 1 ]; then
++								ms_value=",mass_storage"
++							else
++								ms_value=""
++							fi
++							if [ -z "$usb_config" ]; then
++						        set_property persist.sys.usb.config "$ms_value"
++							else
++								set_property persist.sys.usb.config "$usb_config$ms_value"
++							fi
++        					set_property persist.usb.debug "$FORCE_USE_ADB_MASS_STORAGE"
++							;;
++					esac
++				fi
++				;;
++		esac
++	done
++}
++
+ function do_init()
+ {
+ 	init_misc
+ 	set_lowmem
++	set_usb_mode
+ 	init_hal_audio
+ 	init_hal_bluetooth
+ 	init_hal_camera
+@@ -1040,4 +1096,4 @@ case "$1" in
+ 		;;
+ esac
+ 
+-return 0
++return 0
+\ No newline at end of file
+-- 
+2.34.1
+

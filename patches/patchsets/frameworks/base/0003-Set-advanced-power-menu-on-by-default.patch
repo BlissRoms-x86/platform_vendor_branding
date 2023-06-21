@@ -1,0 +1,25 @@
+From 42d716ee23304790c6497d201231137e681a4bf6 Mon Sep 17 00:00:00 2001
+From: Jon West <electrikjesus@gmail.com>
+Date: Mon, 12 Jun 2023 14:28:46 -0400
+Subject: [PATCH 3/3] Set advanced power menu on by default
+
+---
+ packages/SettingsProvider/res/values/defaults.xml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/packages/SettingsProvider/res/values/defaults.xml b/packages/SettingsProvider/res/values/defaults.xml
+index f6d74eb6dd9cb..8107e6fe225d6 100644
+--- a/packages/SettingsProvider/res/values/defaults.xml
++++ b/packages/SettingsProvider/res/values/defaults.xml
+@@ -190,7 +190,7 @@
+     <integer name="def_end_button_behavior">0x2</integer>
+ 
+     <!-- default setting for Settings.System.POWERMENU_ADVANCED -->
+-    <bool name="def_powermenu_advanced">false</bool>
++    <bool name="def_powermenu_advanced">true</bool>
+ 
+     <!-- default setting for Settings.Global.DEFAULT_RESTRICT_BACKGROUND_DATA -->
+     <bool name="def_restrict_background_data">false</bool>
+-- 
+2.34.1
+

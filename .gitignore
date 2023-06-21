@@ -1,6 +1,5 @@
 proprietary/*
-prebuilt/archive
-patches/patchsets*
+prebuilts/archive
 apps.mk
 bin/
 ./Android.mk

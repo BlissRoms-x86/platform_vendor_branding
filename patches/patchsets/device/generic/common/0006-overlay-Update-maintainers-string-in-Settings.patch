@@ -1,0 +1,24 @@
+From de0639a4be2877eff5b0f2d3b221aca84127499e Mon Sep 17 00:00:00 2001
+From: Jon West <electrikjesus@gmail.com>
+Date: Thu, 8 Jun 2023 19:29:33 -0400
+Subject: [PATCH 06/10] [overlay] Update maintainers string in Settings
+
+---
+ overlay/packages/apps/Settings/res/values/custom_strings.xml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/overlay/packages/apps/Settings/res/values/custom_strings.xml b/overlay/packages/apps/Settings/res/values/custom_strings.xml
+index b299795..cbac021 100644
+--- a/overlay/packages/apps/Settings/res/values/custom_strings.xml
++++ b/overlay/packages/apps/Settings/res/values/custom_strings.xml
+@@ -12,5 +12,5 @@
+ -->
+ 
+ <resources>
+-    <string name="bliss_maintainer">"HMTheBoy154"</string>
++    <string name="bliss_maintainer">"HMTheBoy154/electrikjesus"</string>
+ </resources>
+\ No newline at end of file
+-- 
+2.34.1
+
