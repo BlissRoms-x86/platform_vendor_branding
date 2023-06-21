@@ -1,6 +1,7 @@
    Copyright 2011-15 The CyanogenMod Project
              2017    The LineageOS Project
              2020    The LibreMobileOS Foundation
+             2023    Bliss Co-Labs Inc
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -13,3 +14,8 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+
+   Commercial Use: If you wish to use this software in a closed source 
+   project, a licensing agreement for Bliss OS is required or a licensing 
+   fee of \$900 per project is required to be paid before you can use the 
+   software.

@@ -1,13 +1,18 @@
 # vendor branding profile
-This repo includes the branding and app changes for vendor customization
+This repo includes the vendor customization layer for Bliss-Bass.
+This is used to help with rebranding and app changes for Bliss OS based builds, targeting kiosks and single application use cases
 
 Some preparation is needed to include apps into the builds. 
 
 ## Features:
 
  - Supports adding user apps or private apps to be included in the build
- - Supports both arm64-v8a, x86 & x86_64 ABIs through the use of Options
+ - Supports arm64-v8a, x86 & x86_64 ABIs through the use of Options
  - Generates a permissions.xml for including into AOSP based builds
+ - Generates default wallpaper overlays
+ - Generates branded bootanimation based on a single loop of frames
+ - Supports applying separate patchsets on-top of Bliss OS or Bliss OS Go source updates
+ - More to come (let us know what you would like to see)
  
 ##### Options Usage:
 	 
@@ -24,7 +29,7 @@ Some preparation is needed to include apps into the builds.
 To include the branding changes into your device specific builds. Please clone 
 this repo into vendor/branding:
 
-	$ git clone https://github.com/vendsy/vendor_branding vendor/branding
+	$ git clone https://github.com/BlissRoms-x86/platform_vendor_branding vendor/branding
 
 #### Step 1:
 	
@@ -57,8 +62,15 @@ From here we can cd back to our project directory and run:
 
 #### Step 5:
 
-Then we need to update the base with our changes for the project. To do that, we first 
+To apply the changes for Bliss Bass, we need to update the base with our changes for the project. To do that, we first 
 need to know if we are using Bliss-Bass or Bliss-Bass Go. 
+
+*ATTN VENDORS:* To add your changes to this patching system, you will first need to know your base OS, and then run off your changes as .patch files:
+
+	$ cd bootable/newinstaller
+ 	$ git format-patch -1
+
+Then copy that .patch file to patches/patchsets(-go)/bootable/newinstaller/, and then cd back to your project folder and continue below
 
 *Bliss Bass:*
 
@@ -74,6 +86,15 @@ needed to resolve patch conflicts before continuing to the next step)
 
 #### Step 6: 
 
+Prepare your branding changes:
+
+ - default wallpaper: Place default_wallpaper.png in branding/wallpaper/ replacing the file there already
+ - bootanimation: Place a bootanimation.tar of your bootanimation frames in branding/bootanimation/
+
+When lunch is triggered, it will copy your branding files over to the proper overlays or package them in the build phase.
+
+#### Step 7:
+
 After patches apply successfully, you can use the following command to start a clean build:
 
 	$ build-x86
@@ -85,7 +106,7 @@ When compile is complete, you can then find your .iso file in the iso/ folder
 We include a few of the overlays specific to branding in this project. 
 
  - Wallpapers
- - Bootanimation [WIP]
+ - Bootanimation
  - Advanced power-menu overrides
  - virtual keyboard overrides
  - etc.
