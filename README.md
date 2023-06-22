@@ -63,7 +63,7 @@ From here we can cd back to our project directory and run:
 #### Step 5:
 
 To apply the changes for Bliss Bass, we need to update the base with our changes for the project. To do that, we first 
-need to know if we are using Bliss-Bass or Bliss-Bass Go. 
+need to know if we are using Bliss-OS or Bliss-OS Go (currently only 15.x versions are supported through these patchsets). 
 
 *ATTN VENDORS:* To add your changes to this patching system, you will first need to know your base OS, and then run off your changes as .patch files:
 
