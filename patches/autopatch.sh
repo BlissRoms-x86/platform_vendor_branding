@@ -23,6 +23,7 @@ if [[ ! -d "$patch_dir" ]]; then
 fi
 
 patch_dir=`readlink -f "$patch_dir"`
+res_patch_dir="$patch_dir--resolutions"
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -101,8 +102,32 @@ apply_patch() {
       else
         echo -e "        ${RED}Conflicts${NC}         $i"
         git am --abort >& /dev/null
-        conflict="y"
-        conflict_list=":$current_project:$conflict_list"
+        echo "           Searching other vendors for patch resolutions..."
+        for res_set in "$res_patch_dir"/*/ ; do
+          res_set_name=$(echo ${d%%/} | sed 's|.*/||')
+          echo "           looking in $res_set_name for that patch..."
+          if [[ -f "${res_set}${i}" ]]; then
+            echo "           Found ${res_set}${i}!!"
+            echo "           trying..."
+            git am -3 "${res_set}${i}" >& /dev/null
+            if [[ $? == 0 ]]; then
+              echo -e "        ${GREEN}Applying${NC}          $i"
+              goodpatch="y"
+              break
+            else
+              echo -e "        ${RED}Conflicts${NC}         $i"
+              git am --abort >& /dev/null
+              conflict="y"
+            fi
+          fi
+        done
+        if [[ "$goodpatch" != "y" ]]; then
+          echo "           No resolution was found"
+          git am --abort >& /dev/null
+          echo "           Setting $i as Conflicts"
+          conflict="y"
+          conflict_list=":$current_project:$conflict_list"
+        fi
       fi
     else
       echo -e "        ${GREEN}Already applied${NC}   $i"

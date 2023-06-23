@@ -1,0 +1,26 @@
+From 4a82571c7e6756f24ac283e27287f6e295372428 Mon Sep 17 00:00:00 2001
+From: Jon West <electrikjesus@gmail.com>
+Date: Tue, 6 Jun 2023 21:02:38 -0400
+Subject: [PATCH] Disable SetupWizard by default
+
+Allowing us to use ENABLE_GMS=1 to enable it
+---
+ init.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/init.sh b/init.sh
+index c65644d..7dae326 100644
+--- a/init.sh
++++ b/init.sh
+@@ -752,7 +752,7 @@ for c in `cat /proc/cmdline`; do
+ 						set_property ro.sf.lcd_density "$DPI"
+ 						;;
+ 				esac
+-				[ "$SETUPWIZARD" = "0" ] && set_property ro.setupwizard.mode DISABLED
++				[ "$SETUPWIZARD" = "0" -o "$ENABLE_GMS" != "1" ] && set_property ro.setupwizard.mode DISABLED
+ 			fi
+ 			;;
+ 	esac
+-- 
+2.34.1
+
