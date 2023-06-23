@@ -16,7 +16,7 @@
 tmp_lunch=`mktemp`
 
 # !!! Update this to your own path !!!
-vendor_name="BlissBass"
+vendor_name="branding"
 
 # source the official lunch command
 sed '/ lunch()/,/^}/!d'  build/envsetup.sh | sed 's/function lunch/function aosp_lunch/' > ${tmp_lunch}
