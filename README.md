@@ -84,6 +84,11 @@ This will apply all the required changes for the project variant
 (On new base updates, there is a chance of patchsets not applying cleanly. Some work will be 
 needed to resolve patch conflicts before continuing to the next step)
 
+**NOTE** New patchsets can also be created and saved to patches/patchsets-<your_patchset_name>, then applied using:
+
+	$ check_patchsets <your_patchset_name>  
+
+
 #### Step 6: 
 
 Prepare your branding changes:

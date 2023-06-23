@@ -12,11 +12,13 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
+# set -e
+
 # save the official lunch command to aosp_lunch() and source it
 tmp_lunch=`mktemp`
 
 # !!! Update this to your own path !!!
-vendor_name="BlissBass"
+vendor_name="branding"
 
 # source the official lunch command
 sed '/ lunch()/,/^}/!d'  build/envsetup.sh | sed 's/function lunch/function aosp_lunch/' > ${tmp_lunch}
@@ -65,13 +67,19 @@ function check_patchsets()
         echo "[lunch] Couldn't locate the top of the tree.  Try setting TOP." >&2
         return
     fi
-    if [ ! -d vendor/$vendor_name/patches/patchsets/* ]; then
+    # Find the first folder in vendor/$vendor_name/patches/patchsets
+    are_patchsets=`ls vendor/$vendor_name/patches/patchsets`
+    if [ ! "$are_patchsets" ]; then
         echo "[lunch] No patchsets found"
         return
     else
         echo "[lunch] Patchsets found"
-        if [ "$patchset_type" = "go" ]; then
-            bash vendor/$vendor_name/patches/autopatch.sh vendor/$vendor_name/patches/patchsets-go
+        if [ "$patchset_type" != "" ]; then
+            if [ -d vendor/$vendor_name/patches/patchsets-$patchset_type ]; then
+                bash vendor/$vendor_name/patches/autopatch.sh vendor/$vendor_name/patches/patchsets-$patchset_type
+            else
+                echo "No patchsets found for $patchset_type"
+            fi
         else
             bash vendor/$vendor_name/patches/autopatch.sh vendor/$vendor_name/patches/patchsets
         fi
@@ -81,8 +89,7 @@ function check_patchsets()
 # Get the exact value of a build variable.
 function get_build_var()
 {
-    if [ "$1" = "COMMON_LUNCH_CHOICES" ]
-    then
+    if [ "$1" = "COMMON_LUNCH_CHOICES" ]; then
         valid_targets=`mixinup -t`
         save=`build/soong/soong_ui.bash --dumpvar-mode $1`
         unset LUNCH_MENU_CHOICES
@@ -96,8 +103,7 @@ function get_build_var()
         echo ${LUNCH_MENU_CHOICES[@]}
         return
     else
-        if [ "$BUILD_VAR_CACHE_READY" = "true" ]
-        then
+        if [ "$BUILD_VAR_CACHE_READY" = "true" ]; then
             eval "echo \"\${var_cache_$1}\""
             return
         fi
