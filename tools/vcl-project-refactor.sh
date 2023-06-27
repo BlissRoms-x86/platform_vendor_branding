@@ -21,6 +21,8 @@ do_refactor(){
     echo "ST_1_RP: $ST_1_RP"
     cd $SCRIPT_PATH/../overlay/
     grep -r -l "$ST_1" | xargs -r -d'\n' sed -i "s/$ST_1/$ST_1_RP/g"
+    cd $SCRIPT_PATH
+    grep -r -l "$ST_1" ./build-x86.sh | xargs -r -d'\n' sed -i "s/$ST_1/$ST_1_RP/g"
     cd $PWD
 }
 
