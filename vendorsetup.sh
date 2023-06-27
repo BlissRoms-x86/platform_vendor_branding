@@ -105,24 +105,6 @@ function launch_menu()
     bash vendor/$vendor_name/includes/core-menu/core-menu.sh --config vendor/$vendor_name/includes/menus/branding-menu/branding-menu.json
 }
 
-# function to browser for new wallpaper
-function vcl-wallpaper()
-{
-    # Select wallpaper
-    message "Please select your .png wallpaper: "
-    fselect 
-    wallpaper_path=$(0<"${dir_tmp}/${file_tmp}")
-    echo "wallpaper_path = $wallpaper_path"
-    if [ -f $wallpaper_path ]; then
-        # copy wallpaper to temp folder
-        mkdir -p $SCRIPT_PATH/tmp
-        cp -r -f $wallpaper_path $SCRIPT_PATH/branding/wallpaper/default_wallpaper.png
-        message "New Wallpaper copied."
-    else
-        message "Wallpaper not found."
-    fi
-}
-
 # Copy wallpaper
 # copy and replace any image found in vendor/$vendor_name/branding/wallpaper to 
 # vendor/$vendor_name/overlay/common/frameworks/base/core/res/res/drawable-*
