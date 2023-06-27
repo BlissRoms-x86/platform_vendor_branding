@@ -164,18 +164,20 @@ copyFromPrebuiltAppsFolders(){
 		package=$(basename $apk)
 		# packageName=`echo "$package" | cut -d'.' -f1`
 		packageName="${package%.*}"
+		echo -e "Package name: $packageName"
 		echo -e "${YELLOW}# copying: $apk ${NC}"
 		cp $apk bin/
-		addCopy $apk $package ""
+		addCopy $apk $packageName ""
 	done
 	for apk in $(find $prebuilt_priv_apps_folder -type f -name '*.apk'); do
 		apkexists=true
 		package=$(basename $apk)
 		# packageName=`echo "$package" | cut -d'.' -f1`
 		packageName="${package%.*}"
+		echo -e "Package name: $packageName"
 		echo -e "${YELLOW}# copying private-app: $apk ${NC}"
 		cp $apk bin/
-		addPrivCopy $apk $package ""
+		addPrivCopy $apk $packageName ""
 	done
 }
 
