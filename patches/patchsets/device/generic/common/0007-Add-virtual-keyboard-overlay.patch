@@ -1,0 +1,24 @@
+From 06b5c75d08989a329f441f4086b01451020d3b01 Mon Sep 17 00:00:00 2001
+From: Jon West <electrikjesus@gmail.com>
+Date: Fri, 9 Jun 2023 19:55:12 -0400
+Subject: [PATCH 07/10] Add virtual keyboard overlay
+
+---
+ .../base/packages/SettingsProvider/res/values/defaults.xml     | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/overlay/frameworks/base/packages/SettingsProvider/res/values/defaults.xml b/overlay/frameworks/base/packages/SettingsProvider/res/values/defaults.xml
+index 22c64c5..5293f85 100644
+--- a/overlay/frameworks/base/packages/SettingsProvider/res/values/defaults.xml
++++ b/overlay/frameworks/base/packages/SettingsProvider/res/values/defaults.xml
+@@ -22,4 +22,7 @@
+     <integer name="def_screen_off_timeout">600000000</integer>
+     <integer name="def_sleep_timeout">86400000</integer>    
+     <bool name="def_accelerometer_rotation">true</bool>
++    <!-- Allow users to use both the on-screen keyboard, as well as a real
++         keyboard -->
++    <bool name="def_show_ime_with_hard_keyboard">true</bool>
+ </resources>
+-- 
+2.34.1
+

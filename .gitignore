@@ -7,4 +7,4 @@ lib/
 wget-log*
 permissions/
 tmp/*
-
+.config/

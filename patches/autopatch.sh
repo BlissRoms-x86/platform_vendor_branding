@@ -16,6 +16,7 @@
 
 top_dir=`pwd`
 patch_dir="$1"
+SCRIPT_PATH=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 
 if [[ ! -d "$patch_dir" ]]; then
   echo "usage: $0 PATCH_DIR"
@@ -158,4 +159,6 @@ else
   echo -e "${GREEN}===========================================================================${NC}"
   echo -e "${GREEN}           INFO : All patches applied fine !!                              ${NC}"
   echo -e "${GREEN}===========================================================================${NC}"
+  mkdir -p $SCRIPT_PATH/../.config
+  echo "applied" > $SCRIPT_PATH/../.config/patches_applied.cfg
 fi

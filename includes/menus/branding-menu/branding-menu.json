@@ -6,24 +6,54 @@
     "options": {
       "menuEntry": [
         {
+          "name": "Apply Patches",
+          "descr": "",
+          "command": "bash vendor/branding/tools/vcl-apply-patches.sh",
+          "dependencies": [
+            {
+                "dep": "test ! -f vendor/branding/.config/patches_applied.cfg"
+            }
+          ]
+        },
+        {
           "name": "Update Wallpaper",
           "descr": "",
-          "command": "bash vendor/branding/tools/vcl-wallpaper.sh"
+          "command": "bash vendor/branding/tools/vcl-wallpaper.sh",
+          "dependencies": [
+            {
+                "dep": "test -f vendor/branding/.config/patches_applied.cfg"
+            }
+          ]
         },
         {
           "name": "Update Grub Background",
           "descr": "",
-          "command": "bash vendor/branding/tools/vcl-grub.sh"
+          "command": "bash vendor/branding/tools/vcl-grub.sh",
+          "dependencies": [
+            {
+                "dep": "test -f vendor/branding/.config/patches_applied.cfg"
+            }
+          ]
         },
         {
           "name": "Package up bootanimation frames",
           "descr": "",
-          "command": "bash vendor/branding/tools/vcl-bootanimation.sh"
+          "command": "bash vendor/branding/tools/vcl-bootanimation.sh",
+          "dependencies": [
+            {
+                "dep": "test -f vendor/branding/.config/patches_applied.cfg"
+            }
+          ]
         },
         {
           "name": "Rebrand Project Name",
           "descr": "",
-          "command": "bash vendor/branding/tools/vcl-project-refactor.sh"
+          "command": "bash vendor/branding/tools/vcl-project-refactor.sh",
+          "dependencies": [
+            {
+                "dep": "test -f vendor/branding/.config/patches_applied.cfg"
+            }
+          ]
         },
         {
           "name": "Exit",
