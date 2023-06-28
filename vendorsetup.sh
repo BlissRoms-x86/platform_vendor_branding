@@ -130,7 +130,7 @@ function copy_grub_background()
     if [ -f vendor/$vendor_name/branding/grub/* ]; then
         echo -e "Grub branding found. Updating that now..."
         echo ""
-        cp -r vendor/$vendor_name/branding/grub/* vendor/$vendor_name/overlay/common/bootable/newinstaller/boot/isolinux/android-x86.png
+        cp -r vendor/$vendor_name/branding/grub/*.png bootable/newinstaller/boot/isolinux/android-x86.png
         echo -e "Grub branding updated"
     fi
 }

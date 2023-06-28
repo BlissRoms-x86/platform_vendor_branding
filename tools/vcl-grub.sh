@@ -11,7 +11,7 @@ do_copy_grub(){
     if [ -f $SCRIPT_PATH/../branding/grub/* ]; then
     echo -e "Grub branding found. Updating that now..."
     echo ""
-    cp -r $SCRIPT_PATH/../branding/grub/* $SCRIPT_PATH/../overlay/common/bootable/newinstaller/boot/isolinux/android-x86.png
+    cp -r $SCRIPT_PATH/../branding/grub/*.png bootable/newinstaller/boot/isolinux/android-x86.png
     echo -e "Grub branding updated"
 fi
 }
