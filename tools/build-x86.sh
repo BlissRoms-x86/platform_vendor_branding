@@ -1,15 +1,15 @@
 #!/bin/bash
 
 . build/envsetup.sh && make clean && \
-export RELEASE_OS_TITLE="BlissBass" && \
+export RELEASE_OS_TITLE="EIDU-BlissOS" && \
 export USE_SMARTDOCK=false && \
 export USE_KERNEL_SU_PLUS=false && \
-export USE_FOSSAPPS=false && \
-export BLISS_BUILD_VARIANT=vanilla && \
-export IS_GO_VERSION=false && \
+export USE_FOSSAPPS=true && \
+export BLISS_BUILD_VARIANT=foss && \
+export IS_GO_VERSION=true && \
 export BLISS_SUPER_VANILLA=true && \
-export USE_GO_RES_ICONS=false && \
-export BLISS_SPECIAL_VARIANT=-test-1 && \
+export USE_GO_RES_ICONS=true && \
+export BLISS_SPECIAL_VARIANT=-Taifa-ElimuTab-preview && \
 lunch bliss_x86_64-userdebug && make iso_img -j$(expr $(nproc) / 2)
 
 # Look in out/target/product/x86_64/ for the .iso, .sha256 and Changelog* files,
