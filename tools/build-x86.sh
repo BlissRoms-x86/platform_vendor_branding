@@ -10,6 +10,7 @@ export IS_GO_VERSION=true && \
 export BLISS_SUPER_VANILLA=true && \
 export USE_GO_RES_ICONS=true && \
 export BLISS_SPECIAL_VARIANT=-Taifa-ElimuTab-preview && \
+export USE_BLISS_SETUPWIZARD=true && \
 lunch bliss_x86_64-userdebug && make iso_img -j$(expr $(nproc) / 2)
 
 # Look in out/target/product/x86_64/ for the .iso, .sha256 and Changelog* files,
@@ -21,5 +22,3 @@ sha256_exists=$(find out/target/product/x86_64/ -maxdepth 1 -mindepth 1 -type f 
 if [[  "$sha256_exists" != "" ]]; then sha256_name=$(basename "$sha256_exists"); cp "$sha256_exists" iso/"$iso_name.sha256"; fi
 changelog_exists=$(find out/target/product/x86_64/ -maxdepth 1 -mindepth 1 -type f -name "Changelog*")
 if [[  "$changelog_exists" != "" ]]; then changelog_name=$(basename "$changelog_exists"); cp "$changelog_exists" iso/"$iso_name.changelog"; fi
-
-
