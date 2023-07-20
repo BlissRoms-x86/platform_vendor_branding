@@ -91,13 +91,34 @@ function menu_redirect()
     echo -e "${ltgreen}\nPress 'm' followed by return within 5 seconds to launch Bliss-Bass Vendor Customization Menu...${CL_RST}"
     # use read command with timeout of 5 seconds
     read -t 5 -p "Prompt " LAUNCH_MENU
-    if [[ $? -gt 128 ]] ; then
+    if [[ $? -gt 128 ]]; then
         echo -e "\nTimeout"
-    else if [[ "$LAUNCH_MENU" == "m" ]]; then
-        echo "Response = \"$LAUNCH_MENU\"" 
-        launch_menu
+    else 
+        if [[ "$LAUNCH_MENU" == "m" ]]; then
+            echo "Response = \"$LAUNCH_MENU\"" 
+            launch_menu
+
+            # flag to control if we should show the question to run launch_menu again
+            reload_flag=true
+
+            while $reload_flag; do
+                echo -e "${ltgreen}\nDo you want to run launch_menu again? Press 'y' followed by return within 5 seconds...${CL_RST}"
+                read -t 5 -p "Prompt " RELOAD
+                if [[ $? -gt 128 ]]; then
+                    echo -e "\nTimeout"
+                    reload_flag=false
+                else
+                    if [[ "$RELOAD" == "y" ]]; then
+                        echo "Response = \"$RELOAD\""
+                        launch_menu
+                    else
+                        reload_flag=false
+                    fi
+                fi
+            done
         fi
     fi
+
 }
 
 function launch_menu() 
