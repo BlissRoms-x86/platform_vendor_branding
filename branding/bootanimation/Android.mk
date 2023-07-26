@@ -21,23 +21,28 @@ $(TARGET_GENERATED_BOOTANIMATION): $(SOONG_ZIP)
 	@echo "Building bootanimation.zip"
 	@rm -rf $(dir $@)
 	@mkdir -p $(dir $@)
-	$(hide) tar xfp vendor/branding/branding/bootanimation/bootanimation.tar -C $(INTERMEDIATES)
-	$(hide) if [ $(TARGET_SCREEN_HEIGHT) -lt $(TARGET_SCREEN_WIDTH) ]; then \
-	    IMAGEWIDTH=$(TARGET_SCREEN_HEIGHT); \
+	$(hide) mkdir -p $(INTERMEDIATES)/part0
+	$(hide) tar xfp vendor/branding/branding/bootanimation/bootanimation.tar -C $(INTERMEDIATES)/part0
+	$(hide) if [ $(TARGET_SCREEN_WIDTH) -lt $(TARGET_SCREEN_HEIGHT) ]; then \
+	    IMAGEHEIGHT=$(TARGET_SCREEN_HEIGHT); \
+		IMAGEWIDTH=$(TARGET_SCREEN_WIDTH); \
+		IMAGESCALEWIDTH=$$IMAGEWIDTH; \
+		IMAGESCALEHEIGHT=$$IMAGEHEIGHT; \
 	else \
-	    IMAGEWIDTH=$(TARGET_SCREEN_WIDTH); \
+	    IMAGEHEIGHT=$(TARGET_SCREEN_HEIGHT); \
+		IMAGEWIDTH=$(TARGET_SCREEN_WIDTH); \
+		IMAGESCALEWIDTH=$$IMAGEWIDTH; \
+		IMAGESCALEHEIGHT=$$IMAGEHEIGHT; \
 	fi; \
-	IMAGESCALEWIDTH=$$(expr $$IMAGEWIDTH / 2); \
-	IMAGEWIDTH=$$IMAGESCALEWIDTH; \
 	if [ "$(TARGET_BOOTANIMATION_HALF_RES)" = "true" ]; then \
 	    IMAGEWIDTH="$$(expr "$$IMAGESCALEWIDTH" / 2)"; \
 	fi; \
-	RESOLUTION="$$IMAGEWIDTH"x"$$IMAGEWIDTH"; \
+	RESOLUTION="$$IMAGEWIDTH"x"$$IMAGEHEIGHT"; \
 	for part_cnt in 0; do \
 	    mkdir -p $(INTERMEDIATES)/part$$part_cnt; \
 	done; \
 	prebuilts/tools-bass/${HOST_OS}-x86/bin/mogrify -resize $$RESOLUTION -colors 250 $(INTERMEDIATES)/*/*.png; \
-	echo "$$IMAGESCALEWIDTH $$IMAGESCALEWIDTH 60" > $(INTERMEDIATES)/desc.txt; \
+	echo "$$IMAGESCALEWIDTH $$IMAGESCALEHEIGHT 60" > $(INTERMEDIATES)/desc.txt; \
 	cat vendor/branding/branding/bootanimation/desc.txt >> $(INTERMEDIATES)/desc.txt
 	$(hide) $(SOONG_ZIP) -L 0 -o $(TARGET_GENERATED_BOOTANIMATION) -C $(INTERMEDIATES) -D $(INTERMEDIATES)
 
