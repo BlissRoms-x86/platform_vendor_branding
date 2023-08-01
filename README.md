@@ -1,11 +1,12 @@
 # vendor branding profile
 This repo includes the vendor customization layer for Bliss-Bass.
-This is used to help with rebranding and app changes for Bliss OS based builds, targeting kiosks and single application use cases
+This is used to help with rebranding and app changes for Bliss OS based builds, targeting managed and educational devices, kiosks and single application use cases
 
 Some preparation is needed to include apps into the builds. 
 
 ## Features:
 
+ - Menu driven interface for updating assets and branding
  - Supports adding user apps or private apps to be included in the build
  - Supports arm64-v8a, x86 & x86_64 ABIs through the use of Options
  - Generates a permissions.xml for including into AOSP based builds
